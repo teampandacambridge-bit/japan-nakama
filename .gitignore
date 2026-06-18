@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+themes/japan-nakama/node_modules
+themes/nakama/node_modules
+plugins/nakama-blocks/node_modules
+plugins/nakama-blocks/node_modules/
+vendor/
+
+# WordPress uploads
+uploads/
+
+# Build artifacts
+# *.min.js
+# *.min.css
+# dist/
+# build/
+
+# Environment & config
+.env
+.env.*
+wp-config.php
+db.php
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+debug.log
+*.log
+
+# Cache
+cache/
+.cache/
+
+# Plugin/theme zip files
+*.zip
+
+
+# Plugins
+del-plugins/*
+plugins/*
+!plugins/nakama-blocks/
+!plugins/nakama-blocks/**
+
+# Woodmart
+themes/woodmart
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
