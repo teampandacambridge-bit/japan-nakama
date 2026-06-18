@@ -1261,6 +1261,18 @@ div#nav-container {
     height: auto;
   }
 }
+div#nav-container.nav-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+div#nav-container.nav-sticky.nav-hidden {
+  transform: translateY(-100%);
+}
 div#nav-container .mast-head {
   display: flex;
   justify-content: center;

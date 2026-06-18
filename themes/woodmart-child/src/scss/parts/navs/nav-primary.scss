@@ -6,6 +6,22 @@ div#nav-container {
     @include media-screen(md-up) {
         height: auto;
     }
+
+    // Scroll-aware fixed behaviour (toggled from JS).
+    // Visible by default; slides up out of view when `.nav-hidden` is set.
+    &.nav-sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        transition: transform 0.3s ease;
+        will-change: transform;
+    }
+
+    &.nav-sticky.nav-hidden {
+        transform: translateY(-100%);
+    }
     .mast-head {
         display: flex;
         justify-content: center;

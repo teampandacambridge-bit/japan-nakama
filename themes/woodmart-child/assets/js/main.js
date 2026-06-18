@@ -21,6 +21,72 @@ window.addEventListener('load', function () {
     });
 
 
+    function stickyNav() {
+        if (!navContainer) return;
+
+        // Distance from the top of the page that always keeps the nav visible.
+        const TOP_THRESHOLD = 300;
+        // Ignore tiny scroll jitters before toggling direction.
+        const DELTA = 5;
+
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        // The nav becomes position:fixed, so it leaves the document flow.
+        // Reserve its height on the wrapping header so content doesn't jump up.
+        const spacerHost = navContainer.parentElement;
+
+        function reserveSpace() {
+            if (!spacerHost) return;
+            spacerHost.style.paddingTop = navContainer.offsetHeight + "px";
+        }
+
+        navContainer.classList.add("nav-sticky");
+        reserveSpace();
+        window.addEventListener("resize", reserveSpace, { passive: true });
+
+        function update() {
+            ticking = false;
+
+            // Don't hide the bar while the mobile menu overlay is open.
+            if (nav && nav.classList.contains("active")) {
+                navContainer.classList.remove("nav-hidden");
+                lastScrollY = window.scrollY;
+                return;
+            }
+
+            const currentScrollY = window.scrollY;
+            const withinTopZone = currentScrollY <= TOP_THRESHOLD;
+
+            if (Math.abs(currentScrollY - lastScrollY) < DELTA) {
+                return;
+            }
+
+            if (withinTopZone) {
+                navContainer.classList.remove("nav-hidden");
+            } else if (currentScrollY > lastScrollY) {
+                // Scrolling down past the top zone — hide.
+                navContainer.classList.add("nav-hidden");
+            } else {
+                // Scrolling up — reveal.
+                navContainer.classList.remove("nav-hidden");
+            }
+
+            lastScrollY = currentScrollY;
+        }
+
+        window.addEventListener("scroll", () => {
+            if (!ticking) {
+                window.requestAnimationFrame(update);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        update();
+    }
+
+    stickyNav();
+
 
     function catSwiper() {
         const catPageSwiper = document.getElementById('cat-page-swiper');

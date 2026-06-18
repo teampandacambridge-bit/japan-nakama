@@ -32,7 +32,15 @@ $query = new WP_Query($args);
 
     <div class="short-list">
 
-        <h2>Trending Articles</h2>
+        <?php if (is_category('events')) : ?>
+            <h2>Trending Events</h2>
+        <?php elseif (is_front_page() || is_home()) : ?>
+            <h2>Trending Articles</h2>
+        <?php elseif (is_category()) : ?>
+            <h2>Trending Articles</h2>
+        <?php else : ?>
+            <h2>Trending</h2>
+        <?php endif; ?>
 
         <ul class="short-list">
             <?php $dot_num = 1; ?>
