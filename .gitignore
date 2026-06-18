@@ -1,9 +1,10 @@
 # Dependencies
 node_modules/
-themes/japan-nakama/node_modules
-themes/nakama/node_modules
 plugins/nakama-blocks/node_modules
 plugins/nakama-blocks/node_modules/
+themes/japan-nakama/node_modules
+themes/nakama/node_modules
+
 vendor/
 
 # WordPress uploads
