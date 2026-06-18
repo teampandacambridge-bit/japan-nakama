@@ -1,0 +1,112 @@
+.ad-animated-hompage-top {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: black;
+
+    .ad-link {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .ad-img {
+        display: none;
+        width: 100%;
+        height: auto;
+    }
+
+    // Mobile default: 300x600 portrait
+    .ad-img--sm {
+        display: block;
+        max-width: 300px;
+        min-height: 600px;
+        margin: 0 auto;
+    }
+
+    // Tablet: 750x250
+    @media (min-width: 750px) {
+        .ad-img--sm {
+            display: none;
+        }
+        .ad-img--md {
+            display: block;
+            max-width: 750px;
+            min-height: 250px;
+            margin: 0 auto;
+        }
+    }
+
+    // Desktop: 970x250
+    @media (min-width: 970px) {
+        .ad-img--md {
+            display: none;
+        }
+        .ad-img--lg {
+            display: block;
+            max-width: 970px;
+            min-height: 250px;
+            margin: 0 auto;
+        }
+    }
+}
+
+// Sidebar vertical ad — 300x600 portrait
+.ad-sidebar-vertical {
+    margin: 0 auto 20px;
+    margin-top: 2rem;
+
+    .ad-link {
+        display: block;
+    }
+
+    .ad-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 300 / 600;
+    }
+}
+
+// Horizontal ad variant — always shows landscape format, never portrait
+.ad-horizontal {
+    .ad-animated-hompage-top {
+        // Explicitly hide portrait and desktop image at this specificity level
+        // so the cascade never accidentally reveals both simultaneously
+        .ad-img--sm,
+        .ad-img--lg {
+            display: none;
+        }
+
+        // Container holds the black background and CLS floor
+        .ad-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+            background-color: black;
+        }
+
+        // Mobile + tablet: use landscape md image, full width
+        .ad-img--md {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 750 / 250;
+            max-width: 750px;
+        }
+
+        // Desktop: swap to lg image
+        @media (min-width: 970px) {
+            .ad-img--md {
+                display: none;
+            }
+            .ad-img--lg {
+                display: block;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 970 / 250;
+                max-width: 970px;
+            }
+        }
+    }
+}

@@ -1,0 +1,359 @@
+@import "base/mixins.scss";
+@import "base/reset.scss";
+@import "base/grid.scss";
+@import "base/vars.scss";
+@import "base/type.scss";
+
+// Critical
+@import "parts/headers/homepage-header.scss";
+@import "parts/cards/hero-card.scss";
+// Critical
+
+@import "parts/content/text-subcopy.scss";
+@import "parts/content/category-blocks.scss";
+@import "parts/content/post-author.scss";
+@import "parts/content/category-blocks-sub.scss";
+@import "parts/content/featured-post.scss";
+@import "parts/content/newsletter-signup.scss";
+@import "parts/content/slider-cat-latest.scss";
+@import "parts/content/image-text.scss";
+@import "parts/content/table-of-content.scss";
+@import "parts/content/faq-accordion.scss";
+
+@import "parts/navs/desktop-nav.scss";
+@import "parts/navs/nav-primary.scss";
+@import "parts/headers/post-header.scss";
+@import "parts/headers/categories-header.scss";
+@import "parts/headers/location-header.scss";
+
+@import "parts/post-content.scss";
+@import "parts/sidebar-related-posts.scss";
+@import "parts/sidebar-advert.scss";
+@import "parts/sidebar-coupons.scss";
+
+@import "parts/sidebar/cta-events.scss";
+
+@import "parts/ads.scss";
+
+@import "parts/sidebar/table-of-contents.scss";
+@import "parts/cta-email-signup";
+@import "parts/cards/read-more.scss";
+@import "parts/drop-down-links";
+@import "parts/content/card-main.scss";
+@import "parts/content/card-stack_three.scss";
+@import "parts/content/card-stack_two.scss";
+@import "parts/content/ads.scss";
+@import "parts/content/card-archive-list.scss";
+@import "parts/content/short-list.scss";
+@import "parts/content/slider-four-cards.scss";
+@import "parts/content/travel-cards.scss";
+@import "parts/forms/sign-up-mobile-box.scss";
+@import "parts/forms/homepage-newsletter.scss";
+@import "parts/footers/author-bio.scss";
+@import "parts/footers/footer.scss";
+
+@import "parts/shame-on-you.scss";
+
+//WC
+
+@import "woocommerce/shop-home.scss";
+
+@import "pages/sub-category.scss";
+@import "pages/about.scss";
+@import "pages/author.scss";
+
+// .page-template-homepage {
+//     max-width: 1200px;
+//     margin: 0 auto;
+// }
+
+.container-medium {
+    max-width: 1200px !important;
+    margin: 0 auto;
+}
+.contain-homepage-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    .main {
+        width: 100%;
+
+        @include media-screen(md-up) {
+            width: 80%;
+        }
+    }
+    .side {
+        // display: none;
+        @include media-screen(md-up) {
+            width: 20%;
+            display: block;
+            padding: 2rem 1rem 1rem 1rem;
+        }
+    }
+}
+
+.brd-bt {
+    border-bottom: solid 1px var(--color-light-grey);
+}
+
+// * {
+//     background-color: pink;
+// }
+.wd-toolbar {
+    display: none !important;
+}
+
+nav.nav-five-blocks {
+    h2 {
+        background: var(--color-secondary);
+        color: var(--color-white);
+        text-align: center;
+        padding: var(--space-small);
+        font-size: var(--fs-body-large);
+        margin-bottom: 0;
+    }
+
+    ul {
+        // padding: 0;
+        li {
+            // background: var(--color-secondary);
+            list-style: disc;
+            margin: 0.25rem 0;
+            a {
+                font-size: var(--fs-body-regular);
+                font-weight: var(--fw-bold);
+                // color: var(--color-white);
+                // padding: 0.5rem;
+                width: 100%;
+                // text-align: center;
+                display: block;
+            }
+        }
+    }
+}
+
+// .jetpac-block {
+//     height: 2000px;
+// }
+
+@import "base/CMS.scss";
+
+//Gutternberg Blocks
+
+.post-template-single-article {
+    #post-content {
+        section.wp-block-create-block-google-map {
+            margin-bottom: 2rem;
+
+            .map {
+                width: 100%;
+                margin-bottom: 1rem;
+                iframe {
+                    width: 100%;
+                    aspect-ratio: 1;
+                    height: auto;
+                    @include media-screen(md-up) {
+                        aspect-ratio: 4/1;
+                        border: none;
+                        margin: 0;
+                        padding: 0;
+                        display: block; /* removes default inline spacing */
+                    }
+                }
+            }
+
+            address {
+                font-family: Arial, Helvetica, sans-serif;
+                margin-bottom: 0.5rem;
+                span {
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+// section.article-overview {
+//     background-color: rgb(211, 76, 76);
+//     padding: 1rem;
+//     margin-bottom: 2rem;
+//     border-radius: 10px;
+//     h2 {
+//         color: white;
+//         font-weight: 900;
+//     }
+
+//     .overview-meta {
+//         dt,
+//         dd,
+//         span,
+//         time {
+//             color: white;
+//             font-size: 16px;
+//             font-family: Arial, Helvetica, sans-serif;
+//         }
+
+//         dt {
+//             margin-bottom: 0;
+//             padding-bottom: 0;
+//             font-size: 18px;
+//             line-height: 1;
+//         }
+
+//         dd {
+//             margin-bottom: 0.75rem;
+//             border-bottom: 1px solid rgba(255, 255, 255, 0.34);
+//             padding: 0.5rem 0;
+//         }
+
+//         ul.bullet-list {
+//             background-color: rgb(211, 76, 76);
+//             padding: 0;
+//         }
+
+//         h3.bullet-list-heading {
+//             font-size: 18px !important;
+//             line-height: 1;
+//             color: white !important;
+//             padding-bottom: 0.5rem;
+//             margin: 0;
+//             padding: 0;
+//         }
+
+//         ul.bullet-list > li.bullet-list-item {
+//             // border: none;
+//             list-style-type: disc !important;
+//             color: white !important;
+//             font-size: 16px !important;
+//             padding-top: 0.5rem;
+//         }
+
+//         li.bullet-list-item:last-child {
+//             border-bottom: 1px solid white !important;
+//             padding-bottom: 0.5rem;
+//         }
+
+//         dd:last-child {
+//             border-bottom: none !important;
+//         }
+
+//         // .half {
+//         //     width: 45%;
+//         //     display: inline-block;
+//         // }
+
+//         // dd:last-child {
+//         //     border-bottom: none;
+//         //     margin-bottom: 0;
+//         // }
+//     }
+//     // p.cta-heading {
+//     //     color: white;
+//     //     font-size: 16px;
+//     //     font-family: Arial, Helvetica, sans-serif;
+//     //     font-weight: 600;
+//     // }
+
+//     dt.cta-heading {
+//         margin-bottom: 0;
+//         padding-bottom: 0.5rem;
+//         font-size: 18px;
+//         line-height: 1;
+//         color: white;
+//         font-weight: 600;
+//     }
+
+//     a.overview-cta-button {
+//         background-color: white;
+//         padding: 0.5rem 1rem;
+//         font-weight: 600 !important;
+//         display: block;
+//         border-radius: 5px;
+//         margin-top: 0.5rem;
+//         width: fit-content;
+//         color: black !important;
+//     }
+//     .no-bt-border {
+//         border-bottom: none !important;
+//     }
+// }
+
+// .wp-block-create-block-review-overview,
+// .wp-block-create-block-attraction-overview,
+// .wp-block-create-block-event-overview {
+//     padding: 1rem;
+//     ul {
+//         padding-inline-start: 0;
+//         // margin-bottom: 2rem;
+//         background: #f1f1f1;
+//         padding: 1rem;
+//         li {
+//             display: flex;
+//             flex-direction: column;
+//             border-bottom: 1px solid grey;
+//             padding-top: 1rem;
+
+//             flex-direction: row;
+//             align-items: baseline;
+//             justify-content: space-between;
+
+//             p {
+//                 margin-bottom: 1.5rem;
+//             }
+//             button {
+//                 width: fit-content;
+//                 margin: 1rem 0;
+//                 display: block;
+//             }
+//         }
+//     }
+
+//     h2 {
+//         width: 100%;
+//         // background: black;
+//         color: white;
+//         padding: 0.5rem;
+//     }
+
+//     h3 {
+//         padding: 0.5rem;
+//     }
+
+//     h3,
+//     li {
+//         color: black;
+//     }
+
+//     .review-overview-item-heading,
+//     .review-overview-extra-list > li span {
+//         font-weight: 800;
+//     }
+//     // button {
+//     // 	padding: 0;
+//     // 	border: none !important;
+//     // }
+// }
+
+// .post-template-single-article #post-content h3.bullet-list-heading {
+//     color: white !important;
+//     margin-bottom: 0.5rem;
+// }
+
+// ul.add-border-bottom {
+//     border-bottom: 1px solid rgba(255, 255, 255, 0.34);
+//     padding-bottom: 0.5rem;
+//     margin-bottom: 1rem;
+// }
+
+// .tax-product_cat {
+//     background-color: rgb(0, 174, 255) !important;
+
+//     .category-grid-item {
+//         display: none !important;
+//     }
+//     a.category-link {
+//         display: none;
+//     }
+// }
+
+// Pipleline Test V.23123

@@ -1,0 +1,112 @@
+.hero-card {
+    height: auto;
+    gap: var(--space-small);
+    // padding: var(--space-regular) 0 0;
+    .image-wrap {
+        background-color: rgb(52, 35, 35);
+        margin-bottom: var(--space-regular);
+        a {
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+
+        @include media-screen(md-up) {
+            height: 150px;
+        }
+    }
+
+    .text-wrap {
+        @include media-screen(md-up) {
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            padding: var(--space-small) 0;
+        }
+    }
+
+    // Make the main card larger
+    &:nth-child(1) {
+        .image-wrap {
+            height: 200px;
+            @include media-screen(md-up) {
+                min-height: 50%;
+            }
+        }
+        .text-wrap {
+            @include media-screen(md-up) {
+                height: 50%;
+            }
+
+            h2 {
+                font-weight: var(--fw-bold);
+                line-height: var(--lh-x-small);
+                font-size: 1.2rem;
+                margin-bottom: 0.25rem;
+                @include media-screen(md-up) {
+                    font-size: var(--fs-heading-large);
+                }
+            }
+
+            P.card-excerpt {
+                margin-bottom: 0.25rem;
+                @include media-screen(md-up) {
+                    font-size: var(--fs-body-large);
+                }
+            }
+        }
+    }
+
+    // Stacked cards with image to the right
+    &:nth-child(2),
+    &:nth-child(3) {
+        .image-wrap {
+            height: 193px;
+        }
+
+        .text-wrap {
+            h2 {
+                line-height: var(--lh-x-small);
+                font-size: var(--fs-heading-small);
+                @include media-screen(md-up) {
+                    font-size: var(--fs-heading-small);
+                }
+            }
+        }
+    }
+
+    // Stacked cards with no image to the left
+    &:nth-child(4),
+    &:nth-child(5),
+    &:nth-child(6) {
+        padding: var(--space-regular) 0 var(--space-small);
+        .text-wrap {
+            height: 100%;
+            h2 {
+                font-size: var(--fs-heading-small);
+                line-height: var(--lh-x-small);
+
+                // @include media-screen(md-up) {
+                //     font-size: 24px;
+                // }
+            }
+
+            // a {
+            //     font-size: 18px;
+            //     line-height: 1;
+            // }
+        }
+    }
+    &:nth-child(4),
+    &:nth-child(5),
+    &:nth-child(6) {
+        border-top: 2px solid var(--color-border);
+    }
+
+    // &:nth-child(3),
+    // &:nth-child(6) {
+    //     border-bottom: 2px solid var(--color-border);
+    // }
+}

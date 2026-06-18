@@ -1,0 +1,61 @@
+#block bad bots rule
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} ^.*(SCspider|Textbot|ClaudeBot|YandexBot|AspiegelBot|BLEXBot|webmeup-crawler|oBot|SiteExplorer|BaiDuSpider).*$ [NC]
+RewriteRule .* - [F,L]
+
+# BEGIN LSCACHE
+# END LSCACHE
+# BEGIN NON_LSCACHE
+# END NON_LSCACHE
+
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+# Start CloudFlare:japannakama.co.uk rewrite. Do not Edit
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^japannakama.co.uk
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+# End CloudFlare rewrite.
+
+
+# BEGIN Enable Gzip Compression
+# END Enable Gzip Compression
+
+
+
+# BEGIN Robin Image Optimizer Webp
+# The directives (lines) between "BEGIN Robin Image Optimizer Webp" and "END Robin Image Optimizer Webp" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+
+# END Robin Image Optimizer Webp
+
+# Wordfence WAF
+<Files ".user.ini">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order deny,allow
+		Deny from all
+	</IfModule>
+</Files>
+
+
+# END Wordfence WAF

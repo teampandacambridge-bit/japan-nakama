@@ -1,0 +1,141 @@
+// h1,
+// h2,
+// h3,
+// h4,
+// h5 {
+//     font-style: normal;
+//     font-family: "roboto", sans;
+// }
+
+// h1 {
+//     font-size: 30px;
+//     font-weight: 700;
+//     line-height: 33px;
+//     letter-spacing: 0.8px;
+//     @include media-screen(md-up) {
+//         font-size: 35px;
+//         line-height: 45px;
+//         letter-spacing: 1px;
+//     }
+//     @include media-screen(lg-up) {
+//         font-size: 45px;
+//         line-height: 48px;
+//     }
+// }
+
+// h2 {
+//     font-size: 24px;
+//     margin: var(--margin-md) 0;
+// }
+
+// h3 {
+//     margin: var(--margin-md) 0;
+// }
+
+// p.sub-copy {
+//     font-size: 19px;
+//     line-height: 24px;
+//     color: var(--color-black);
+//     font-weight: 400;
+
+//     @include media-screen(md-up) {
+//         font-size: 26px;
+//         line-height: 34px;
+//         letter-spacing: 0.4px;
+//     }
+// }
+
+// #post-content {
+//     h2 {
+//         color: var(--color-primary);
+//     }
+//     p {
+//         font-size: 20px;
+//         line-height: 35px;
+//     }
+// }
+
+// .red {
+//     color: var(--color-red);
+// }
+
+// .author-name {
+//     line-height: 1;
+//     font-size: 16px;
+//     color: var(--color-primary);
+//     font-weight: 600;
+// }
+
+:root {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    a,
+    time {
+        font-family: var(--font-body);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    a,
+    time {
+        color: var(--color-secondary);
+    }
+
+    h1 {
+        font-size: var(--fs-heading-large);
+        line-height: var(--lh-small);
+    }
+
+    h2 {
+        margin-bottom: var(--space-regular);
+        font-size: var(--fs-heading-regular);
+        line-height: var(--lh-small);
+    }
+
+    h3 {
+        font-size: var(--fs-heading-small);
+        line-height: var(--lh-x-small);
+    }
+
+    p {
+        margin-bottom: var(--space-regular);
+        font-size: var(--fs-body-regular);
+        line-height: var(--lh-regular);
+    }
+
+    p.author {
+        font-size: var(--fs-body-small);
+        margin-bottom: var(--space-sm);
+        span {
+            color: var(--color-primary);
+            text-transform: capitalize;
+        }
+    }
+
+    time.date {
+        font-size: var(--fs-body-small);
+        color: var(--color-light-grey);
+    }
+
+    .tag {
+        padding: calc(var(--padding-sm) / 4) var(--padding-sm);
+        p {
+            font-weight: var(--fw-bold);
+            font-style: normal;
+        }
+        &_solid-red {
+            background-color: var(--color-primary);
+            p {
+                color: var(--color-white) !important;
+                margin: 0 !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+section.text-sub-copy {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    margin: 0 auto;
+    @include media-screen(md-up) {
+        max-width: 75%;
+    }
+
+    h2 {
+        font-size: var(--fs-heading-regular);
+        text-align: center;
+        line-height: var(--lh-regular);
+
+        @include media-screen(md-up) {
+            font-size: 30px;
+        }
+    }
+    p {
+        text-align: center;
+        font-size: var(--fs-body-large);
+        margin-bottom: var(--space-regular);
+    }
+}

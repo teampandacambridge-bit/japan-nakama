@@ -1,0 +1,44 @@
+#email-signup {
+    // margin-bottom: 4rem;
+
+    // @include media-screen(lg-up) {
+    //     margin-left: 10vw;
+    // }
+
+    .text {
+        padding: var(--padding-md);
+        background: var(--color-secondary);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        h2,
+        p {
+            color: var(--color-white);
+            text-align: center;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 2rem;
+        }
+
+        .klaviyo-form-RCvnrW {
+            form {
+                float: none !important;
+                margin: 0 auto;
+                padding-top: 1rem;
+            }
+        }
+    }
+
+    .image {
+        background: var(--color-secondary);
+        min-height: 150px;
+        background-image: url(../../assets/img/email-bg.jpg);
+        background-size: cover;
+    }
+}

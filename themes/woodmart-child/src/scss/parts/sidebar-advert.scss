@@ -1,0 +1,8 @@
+.fixed-container,
+.sidebar-advert {
+    display: none;
+
+    @include media-screen(md-up) {
+        display: block;
+    }
+}

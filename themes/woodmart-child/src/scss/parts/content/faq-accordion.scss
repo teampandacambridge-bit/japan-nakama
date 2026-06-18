@@ -1,0 +1,79 @@
+$color-text: #1a1a1a;
+$color-muted: #6b7280;
+$color-border: #e5e7eb;
+$transition: 0.2s ease;
+
+.faq {
+    max-width: 42rem;
+
+    margin-top: 1rem;
+
+    &__list {
+        min-height: 200px;
+    }
+    &__title {
+        font-size: 1.875rem;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        margin-bottom: 2rem;
+    }
+
+    &__item {
+        border-bottom: 1px solid $color-border;
+    }
+
+    &__trigger {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+        font-size: 1rem;
+        font-weight: 500;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        color: $color-text;
+        transition: color $transition;
+
+        &:hover {
+            color: $color-muted;
+        }
+
+        &[aria-expanded="true"] .faq__chevron {
+            transform: rotate(180deg);
+        }
+    }
+
+    &__chevron {
+        flex-shrink: 0;
+        transition: transform $transition;
+    }
+
+    &__content {
+        overflow: hidden;
+        transition:
+            max-height 0.3s ease,
+            opacity 0.2s ease;
+
+        &[hidden] {
+            display: block;
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        &.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        p {
+            padding: 0 0 1rem;
+            margin: 0;
+            color: $color-muted;
+            line-height: 1.6;
+        }
+    }
+}

@@ -1,0 +1,83 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/attraction-overview",
+	"version": "0.1.0",
+	"title": "Attraction Overview",
+	"category": "widgets",
+	"icon": "star-filled",
+	"description": "Displays an overview for tourist attractions.",
+	"example": {},
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "Overview"
+		},
+		"cost": {
+			"type": "string",
+			"default": "cost"
+		},
+		"address": {
+			"type": "string",
+			"default": "address"
+		},
+		"hours": {
+			"type": "string",
+			"default": "open hours"
+		},
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"heading": "",
+					"description": ""
+				}
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"heading": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"bulletHeading": {
+			"type": "string",
+			"default": ""
+		},
+		"bullets": {
+			"type": "array",
+			"default": []
+		},
+		"cta": {
+			"type": "object",
+			"default": {
+				"text": "",
+				"url": ""
+			},
+			"properties": {
+				"text": {
+					"type": "string",
+					"default": ""
+				},
+				"url": {
+					"type": "string",
+					"default": ""
+				}
+			}
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "attraction-overview",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}

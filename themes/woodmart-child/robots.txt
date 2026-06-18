@@ -1,0 +1,49 @@
+User-agent: *
+
+# Block filter parameters
+Disallow: /*?filter_*
+Disallow: /*?filter_collections=*
+Disallow: /*?filter_size=*
+Disallow: /*?filter_colour=*
+Disallow: /*?filter_brands=*
+Disallow: /*?filter_shop-by=*
+Disallow: /*?orderby=*
+Disallow: /*?currency=*
+Disallow: /*?srsltid=*
+Disallow: /*?s=*
+Disallow: /*?action=*
+Disallow: /*?yith_wcan=*
+Disallow: /*?add-to-cart=*
+Disallow: /*?p=*
+
+# Block attribute filters
+Disallow: /*?attribute_*
+
+# Block WooCommerce system pages
+Disallow: /checkout-*/
+Disallow: /order-confirmation-*/
+Disallow: /order-failed-*/
+
+# Block WordPress system directories (Keep uploads open)
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/cache/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/themes/
+Disallow: /wp-content/uploads/woo-import-export/
+Allow: /wp-content/uploads/
+
+# Block unnecessary taxonomy pages
+Disallow: /search/*/
+Disallow: /tag/
+Disallow: /topic/
+Disallow: /product-tag/
+
+# Block Cloudflare paths
+Disallow: /cdn-cgi/
+
+# Block pagination (optional, if pagination is useful, remove this)
+Disallow: /page/*/
+
+# Sitemap location
+Sitemap: https://www.japannakama.co.uk/sitemap_index.xml

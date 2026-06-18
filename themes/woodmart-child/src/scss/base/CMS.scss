@@ -1,0 +1,133 @@
+/* remove woocomm duplicate button */
+.product_cat-curated #wd-add-to-cart {
+    display: none;
+}
+
+/* shipping banner */
+.single-product-page .in-stock {
+    background: green;
+    padding: 1rem 0.5rem;
+    text-align: center;
+}
+.single-product-page .in-stock strong span font {
+    color: white !important;
+}
+
+/* Place Order button on checkout page */
+.ppcp-dcc-order-button {
+    float: none;
+    background: black;
+    color: white;
+}
+
+.ppcp-dcc-order-button:hover {
+    color: white;
+}
+
+.wd-blog-holder .entry-summary {
+    display: none !important;
+}
+
+/*.wpb_video_widget.vc_video-aspect-ratio-169 .wpb_video_wrapper { padding-top: 0;
+}*/
+.wpb_video_widget.vc_video-aspect-ratio-169 .wpb_video_wrapper {
+    padding-top: 0%;
+}
+
+/* .whb-general-header-inner{
+	overflow:hidden !important;
+} */
+
+.wp-caption {
+    max-width: 100%;
+}
+
+/*Hide sidebar hambtn*/
+.wd-sidebar-opener {
+    display: none !important;
+}
+
+/* Cat landing page - remove hero gap */
+
+@media only screen and (max-width: 1024px) {
+    .page-template-categories-landing .whb-header-bottom-inner {
+        display: none;
+    }
+
+    .page-template-homepage.whb-header-bottom {
+        display: none;
+    }
+
+    .page-template-categories-landing h1 {
+        margin-top: 2rem;
+    }
+}
+
+/* Klana Bug Fix On WC  */
+
+.payment_method_woocommerce_payments_klarna {
+    display: none !important;
+}
+
+li.payment_method_woocommerce_payments_klarna {
+    display: grid !important;
+    align-items: center !important;
+}
+
+.single-product #payment-method-message {
+    display: none !important;
+}
+
+#article ul li {
+    font-size: 20px;
+}
+
+.wd-toolbar {
+    display: none !important;
+}
+.sticky-toolbar-on {
+    padding-bottom: 0 !important;
+}
+
+.wd-footer p {
+    color: white !important;
+}
+
+.page-id-150747 main {
+    padding-top: 2rem;
+}
+.wd-post-cat a {
+    color: white !important;
+}
+
+main#post-content a {
+    color: red;
+    font-weight: 400;
+}
+main#post-content a.broken_link {
+    text-decoration: none !important;
+}
+
+div#rich-text-016JB91TTR00000000002XE258 p {
+    background: red;
+}
+
+div#rich-text-016JB91TTR00000000002XE259 p {
+    background: red;
+}
+
+.terms a {
+    color: white !important;
+}
+
+li.step-cart a span {
+    color: white !important;
+}
+
+h1.entry-title {
+    color: white !important;
+}
+
+.wd-checkout-steps li a {
+    color: white !important;
+}

@@ -1,0 +1,112 @@
+// overview
+section.post-overview-render {
+    background-color: rgb(211, 76, 76);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+
+    // h2 {
+    //     margin: 1.5rem 0;
+    // }
+
+    h2,
+    h3 {
+        color: white !important;
+        font-weight: 900;
+    }
+
+    dt,
+    dd,
+    time,
+    li.bullet-list-item {
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    // title
+    dt {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        font-size: 18px;
+        line-height: 1;
+        font-weight: 600;
+    }
+
+    dd,
+    time,
+    li.bullet-list-item {
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+    }
+
+    li.bullet-list-item {
+        margin-bottom: 0rem;
+    }
+
+    dt.bullet-list-item {
+        list-style-type: disc; /* circle, square, or custom marker */
+        display: list-item;
+        margin-left: 1.5em;
+    }
+
+    //desc
+    dd {
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.34);
+        padding: 0.5rem 0;
+    }
+
+    ul.bullet-list {
+        padding-top: 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.34);
+        padding-bottom: 0.5rem;
+    }
+
+    .no-bt-border {
+        border-bottom: none !important;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    a.overview-cta-button {
+        font-weight: 800 !important;
+        color: black !important;
+        background-color: white;
+        border: 2px solid white;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem 0;
+        display: block;
+        width: fit-content;
+        border-radius: 10px;
+        // border: 1px solid black;
+    }
+
+    &.wp-block-create-block-event-review {
+        a.overview-cta-button {
+            margin-top: 1rem;
+        }
+    }
+
+    &.wp-block-create-block-product-review {
+        //product review
+
+        h3.pd-bt-0 {
+            margin-bottom: 0.5rem;
+        }
+
+        ul.product-cons,
+        ul.product-pros {
+            padding-top: 0rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.34);
+            padding-bottom: 0.5rem;
+        }
+
+        ul:last-of-type {
+            // your styles here
+            border-bottom: none !important;
+            padding-bottom: 0;
+        }
+    }
+}

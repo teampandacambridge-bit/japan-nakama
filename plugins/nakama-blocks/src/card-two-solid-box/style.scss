@@ -1,0 +1,25 @@
+.wp-block-create-block-card-two-solid-box {
+    background-color: rgb(233, 233, 233);
+    padding: 1rem;
+    border: 1px solid rgba(141, 141, 141, 0.351);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border-radius: 5px;
+    h2 {
+        color: rgb(68, 68, 68);
+        margin-bottom: 0.5rem;
+    }
+    p.sub-heading {
+        margin: 0 !important;
+        line-height: 1;
+    }
+
+    .preview-cards {
+        display: flex;
+        .card {
+            img {
+                height: auto;
+                width: 100%;
+            }
+        }
+    }
+}

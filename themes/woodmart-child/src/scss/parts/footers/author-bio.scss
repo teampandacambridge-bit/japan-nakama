@@ -1,0 +1,99 @@
+#author-bio-footer {
+    //     .author-bio {
+    //         margin-bottom: 4rem;
+    //         margin-bottom: 0;
+    //         margin-top: 2rem;
+    //         background-color: var(--color-secondary);
+    //         display: flex;
+    //         flex-direction: column;
+    //         align-items: center;
+    //         justify-content: center;
+    //         position: relative;
+
+    //         // @include media-screen(lg-up) {
+    //         //     margin-left: 10vw;
+    //         // }
+
+    //         .author-info {
+    //             width: 100%;
+    //             background: none;
+    //             .avatar-96 {
+    //                 border-radius: 50%;
+    //                 position: absolute;
+    //                 top: -50px;
+    //                 border: 2px solid white;
+    //             }
+    //             h4,
+    //             p,
+    //             a {
+    //                 margin: 0;
+    //                 color: var(--color-white);
+    //             }
+
+    //             a {
+    //                 font-weight: 500;
+    //                 margin-top: 1rem;
+    //                 &:hover {
+    //                     cursor: pointer;
+    //                 }
+    //             }
+    //             h4,
+    //             p {
+    //                 margin-bottom: var(--margin-sm);
+    //             }
+
+    //             display: block;
+    //             @include media-screen(md-up) {
+    //                 display: flex;
+    //                 justify-content: center;
+    //                 align-items: baseline;
+    //             }
+    //         }
+    //     }
+    // }
+
+    .author-bio {
+        background-color: var(--color-primary);
+        border-top: 1px solid black;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        padding: 2rem 0;
+        flex-direction: column;
+        @include media-screen(md-up) {
+            padding: 1rem 0;
+            flex-direction: row;
+        }
+    }
+
+    .author-desc {
+        h4,
+        p,
+        a {
+            margin: 0;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        h4 {
+            margin: 0.5rem;
+            font-weight: 800;
+        }
+
+        a {
+            display: block;
+            margin: 0.5rem;
+            font-weight: 800;
+        }
+    }
+
+    .author-img {
+        padding: var(--padding-sm);
+
+        img {
+            border-radius: 50%;
+            border: 2px solid var(--color-white);
+        }
+    }
+}

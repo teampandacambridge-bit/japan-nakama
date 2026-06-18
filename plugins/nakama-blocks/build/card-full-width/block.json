@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "create-block/card-full-width",
+  "version": "0.1.0",
+  "title": "Card Full Width",
+  "category": "widgets",
+  "icon": "star-filled",
+  "description": "Displays a full width card with background image and CTA.",
+  "example": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": ""
+    },
+    "subHeading": {
+      "type": "string",
+      "default": ""
+    },
+    "cta": {
+      "type": "object",
+      "default": {
+        "text": "",
+        "url": ""
+      },
+      "properties": {
+        "text": {
+          "type": "string",
+          "default": ""
+        },
+        "url": {
+          "type": "string",
+          "default": ""
+        }
+      }
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "full-width-card",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js"
+}

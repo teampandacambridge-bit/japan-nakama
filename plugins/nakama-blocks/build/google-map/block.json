@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "create-block/google-map",
+  "version": "0.1.0",
+  "title": "Google Mao",
+  "category": "widgets",
+  "icon": "location",
+  "description": "Google Map",
+  "example": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "Overview"
+    },
+    "map": {
+      "type": "string",
+      "default": ""
+    },
+    "addressEnglish": {
+      "type": "string",
+      "default": ""
+    },
+    "addressJapanese": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "google-map",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js"
+}

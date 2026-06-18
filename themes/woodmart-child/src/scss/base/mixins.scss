@@ -1,0 +1,22 @@
+@mixin media-screen($breakpoint) {
+    @if $breakpoint == sm-up {
+        @media only screen and (min-width: 425px) {
+            @content;
+        }
+    }
+    @if $breakpoint == md-up {
+        @media only screen and (min-width: 768px) {
+            @content;
+        }
+    }
+    @if $breakpoint == lg-up {
+        @media only screen and (min-width: 1024px) {
+            @content;
+        }
+    }
+    @if $breakpoint == xl-up {
+        @media only screen and (min-width: 1440px) {
+            @content;
+        }
+    }
+}

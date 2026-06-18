@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/interview-overview",
+	"version": "0.1.0",
+	"title": "Interview Overview",
+	"category": "widgets",
+	"icon": "admin-users",
+	"description": "Outputs structured data for interviews (Schema.org Interview).",
+	"example": {},
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"description": {
+			"type": "string",
+			"default": ""
+		},
+		"interviewee": {
+			"type": "string",
+			"default": ""
+		},
+		"jobTitle": {
+			"type": "string",
+			"default": ""
+		},
+		"organization": {
+			"type": "string",
+			"default": ""
+		},
+		"interviewer": {
+			"type": "string",
+			"default": ""
+		},
+		"datePublished": {
+			"type": "string",
+			"default": ""
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "interview-overview",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}

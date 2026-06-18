@@ -1,0 +1,101 @@
+.list-container {
+    // margin-bottom: var(--margin-lg);
+    margin-bottom: 2rem;
+    margin: var(--space-x-small);
+
+    h2 {
+        width: 100%;
+        font-size: var(--fs-heading-regular);
+        // font-family: "Roboto", sans;
+        // font-weight: 400;
+        // font-style: normal;
+        // margin-bottom: 2rem;
+        // font-weight: 700;
+        text-align: center;
+        background: var(--color-primary);
+        color: var(--color-white);
+        padding: var(--space-x-small);
+    }
+
+    #card-archive-list {
+        ul {
+            padding: 0;
+            // height: 1000px;
+            height: auto;
+            // padding: 2px;
+            border-bottom: 2px solid var(--color-secondary);
+
+            li {
+                list-style: none;
+                border-bottom: 2px solid var(--color-grey);
+
+                a {
+                    display: flex;
+                    height: 200px;
+                    margin: 0;
+                    width: 100%;
+                    .image {
+                        height: 150px;
+                        width: 50%;
+                        overflow: hidden;
+                        margin-top: var(--margin-sm);
+                        img {
+                            width: 75%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .text {
+                        // padding: var(--margin-sm) 0 var(--margin-sm) var(--margin-sm);
+                        width: 50%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-evenly;
+                        h3 {
+                            margin: 0;
+                            font-size: var(--fs-heading-small);
+                            // // color: var(--color-black);
+                            // font-family: "Roboto", sans;
+                            // font-weight: 700;
+                            // font-style: normal;
+                        }
+                        .date-author {
+                            // font-size: 14px;
+                            // color: var(--color-black);
+                            // font-family: "Roboto", sans;
+                            // font-weight: 400;
+                            // font-style: normal;
+                        }
+
+                        p {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .pagination-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        #prev-page,
+        #next-page {
+            background: none;
+        }
+
+        button,
+        p {
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 33.3%;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
+}

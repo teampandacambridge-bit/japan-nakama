@@ -1,0 +1,59 @@
+.slider-four-cards {
+    overflow: hidden;
+    margin-bottom: 2rem;
+    h2,
+    h3 {
+        font-family: "Roboto", sans;
+
+        font-style: normal;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 25px;
+        font-weight: 700;
+        margin-bottom: 4rem;
+    }
+
+    p {
+        font-size: 18px;
+        color: var(--color-black);
+        padding-top: var(--padding-sm);
+    }
+    .swiper-slide {
+        .image {
+            height: 50%;
+            position: relative;
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .text {
+            h3 {
+                font-size: 16px;
+                text-align: left;
+                margin: 1rem 0;
+            }
+            p.tag {
+                padding: 0 var(--padding-xs);
+                text-align: center;
+                margin: var(--margin-xs) 0;
+                background-color: var(--color-primary);
+
+                border: 1px solid var(--color-primary);
+
+                a {
+                    color: var(--color-white) !important;
+                    font-weight: 700;
+                    font-family: "Roboto", sans;
+                    font-size: 12px;
+                    font-style: normal;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

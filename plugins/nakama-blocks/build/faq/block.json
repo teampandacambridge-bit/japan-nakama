@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "create-block/faq",
+  "version": "0.1.0",
+  "title": "faq",
+  "category": "widgets",
+  "icon": "star-filled",
+  "description": "Displays a faq section.",
+  "example": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": ""
+    },
+    "subHeading": {
+      "type": "string",
+      "default": ""
+    },
+    "items": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "default": ""
+          },
+          "answer": {
+            "type": "string",
+            "default": ""
+          }
+        }
+      }
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "full-width-card",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js"
+}

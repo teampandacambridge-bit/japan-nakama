@@ -1,0 +1,14 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-create-block-google-map {
+	border: 4px solid black;
+	padding: 1rem;
+	h2,
+	p {
+		color: black;
+	}
+}

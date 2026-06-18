@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/card-slider-three",
+	"version": "0.1.0",
+	"title": "Card Slider Three",
+	"category": "widgets",
+	"icon": "star-filled",
+	"description": "Displays Three Card Slider.",
+	"example": {},
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"subHeading": {
+			"type": "string",
+			"default": ""
+		},
+		"selectedCategory": {
+			"type": "string",
+			"default": ""
+		},
+		"selectedTags": {
+			"type": "array",
+			"items": {
+				"type": "number"
+			},
+			"default": []
+		},
+		"selectedPosts": {
+			"type": "array",
+			"items": {
+				"type": "number"
+			},
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "card-slider-three",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}

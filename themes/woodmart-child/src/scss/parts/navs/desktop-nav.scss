@@ -1,0 +1,48 @@
+#nakama-nav {
+    max-width: 1222px;
+    margin: 0 auto;
+    ul {
+        display: flex;
+        justify-content: center;
+        li {
+            list-style: none;
+            a {
+                font-size: 20px;
+                margin: 1rem 1.5rem;
+                font-weight: 600;
+                color: black !important;
+            }
+
+            .red {
+                color: red !important;
+            }
+        }
+    }
+}
+
+#nav-logo {
+    margin-top: 2rem;
+    .img-wrap {
+        width: 150px;
+        height: auto;
+        margin: 1rem auto 2rem;
+        img {
+        }
+    }
+}
+
+ul#menu-primary {
+    li {
+        list-style: none !important;
+    }
+}
+
+footer#main-footer {
+    .links {
+        ul {
+            li {
+                list-style: none !important;
+            }
+        }
+    }
+}

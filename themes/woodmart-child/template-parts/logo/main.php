@@ -1,0 +1,1 @@
+  <img src="<?php echo get_stylesheet_directory_uri() . '/assets/logos/nakama.svg'; ?>" alt="JapanNakama Logo">

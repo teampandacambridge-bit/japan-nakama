@@ -1,0 +1,91 @@
+.card-stack__two {
+    margin: var(--space-small);
+    @include media-screen(md-up) {
+        padding-top: var(--padding-md);
+    }
+    margin-bottom: var(--maring-lg);
+    .stacked-cards {
+        // border-top: 2px solid var(--color-black);
+        // border-bottom: 2px solid var(--color-black);
+
+        ul {
+            padding: 0;
+            margin-bottom: 0;
+
+            li {
+                list-style: none;
+                &:first-child {
+                    // border-bottom: 2px solid var(--color-light-grey);
+                    // margin-bottom: 2rem;
+                    // padding-bottom: 2rem;
+                }
+
+                a {
+                    .stacked-card {
+                        display: flex;
+                        flex-direction: column;
+                        padding: var(--space-small) 0;
+
+                        @include media-screen(md-up) {
+                            flex-direction: row;
+                        }
+
+                        .image {
+                            height: 200px;
+                            width: 100%;
+                            margin-bottom: 1rem;
+
+                            img {
+                                height: 100%;
+                                width: 100%;
+                                object-fit: cover;
+                            }
+
+                            @include media-screen(md-up) {
+                                height: 300px;
+                                width: 50%;
+                            }
+                        }
+
+                        .text {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-around;
+                            .heading {
+                                h2 {
+                                    // margin: var(--margin-sm) 0;
+                                    font-style: normal;
+                                    font-size: var(--fs-heading-regular);
+                                }
+                            }
+
+                            @include media-screen(md-up) {
+                                width: 50%;
+                                padding: var(--space-regular);
+                            }
+
+                            p.excerpt {
+                                color: var(--color-secondary);
+                                font-size: var(--fs-body-regular);
+                            }
+
+                            .date-author {
+                                display: flex;
+                                justify-content: space-between;
+                                // p {
+                                //     color: var(--color-black);
+                                //     font-family: "Roboto", sans;
+                                //     font-weight: 400;
+                                // }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__two {
+            @extend .stacked-cards;
+        }
+    }
+}

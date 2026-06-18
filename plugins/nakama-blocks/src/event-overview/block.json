@@ -1,0 +1,117 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/event-overview",
+	"version": "0.1.0",
+	"title": "Event Overview",
+	"category": "widgets",
+	"icon": "tickets-alt",
+	"description": "Displays an overview for events.",
+	"example": {},
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"cost": {
+			"type": "string",
+			"default": ""
+		},
+		"address": {
+			"type": "string",
+			"default": ""
+		},
+		"startDate": {
+			"type": "object",
+			"default": {
+				"date": "",
+				"time": ""
+			},
+			"properties": {
+				"date": {
+					"type": "string",
+					"format": "date",
+					"default": ""
+				},
+				"time": {
+					"type": "string",
+					"format": "time",
+					"default": ""
+				}
+			}
+		},
+		"endDate": {
+			"type": "object",
+			"default": {
+				"date": "",
+				"time": ""
+			},
+			"properties": {
+				"date": {
+					"type": "string",
+					"format": "date",
+					"default": ""
+				},
+				"time": {
+					"type": "string",
+					"format": "time",
+					"default": ""
+				}
+			}
+		},
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"heading": "",
+					"description": ""
+				}
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"heading": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"bulletHeading": {
+			"type": "string",
+			"default": ""
+		},
+		"bullets": {
+			"type": "array",
+			"default": []
+		},
+		"cta": {
+			"type": "object",
+			"default": {
+				"text": "",
+				"url": ""
+			},
+			"properties": {
+				"text": {
+					"type": "string",
+					"default": ""
+				},
+				"url": {
+					"type": "string",
+					"default": ""
+				}
+			}
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "event-overview",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}

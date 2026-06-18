@@ -1,0 +1,33 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-create-block-interview-overview {
+	border: 4px solid black;
+	padding: 1rem;
+	ul {
+		padding-inline-start: 0;
+		margin-bottom: 2rem;
+		li {
+			display: flex;
+			flex-direction: column;
+
+			p {
+				margin-bottom: 1.5rem;
+			}
+			button {
+				width: fit-content;
+				margin: 1rem 0;
+				display: block;
+			}
+		}
+	}
+
+	h2,
+	h3,
+	li {
+		color: black;
+	}
+}

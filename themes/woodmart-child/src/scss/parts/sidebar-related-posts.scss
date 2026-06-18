@@ -1,0 +1,77 @@
+.related-posts {
+    padding: var(--space-large) var(--space-medium);
+    h2 {
+        font-size: var(--fs-body-large);
+        text-align: left;
+    }
+    p {
+        margin-bottom: var(--margin-sm);
+    }
+
+    a.cat-heading {
+        background-color: var(--color-white);
+        border: 1px solid var(--color-secondary);
+        color: var(--color-secondary);
+        padding: calc(var(--padding-sm) / 2) var(--padding-sm);
+        font-weight: 600;
+        text-transform: lowercase;
+
+        &:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+    }
+
+    .posts {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        @include media-screen(md-up) {
+            flex-direction: column;
+            // padding-top: 2rem;
+        }
+
+        a.post-card {
+            // background-color: var(--color-secondary);
+            // border: 1px solid var(--color-secondary);
+            width: 45%;
+
+            @include media-screen(md-up) {
+                width: 100%;
+            }
+
+            // padding: var(--padding-md) var(--padding-sm);
+
+            .image {
+                height: 100px;
+                object-fit: contain;
+                overflow: hidden;
+                // display: none;
+                display: block;
+                border-bottom: 5px solid var(--color-primary);
+                // padding: 0.5rem;
+                margin-bottom: var(--space-small);
+
+                @include media-screen(md-up) {
+                    display: block;
+                }
+            }
+            .text {
+                p {
+                    color: var(--color-black);
+                    text-align: left;
+                    font-size: var(--fs-body-regular);
+                    font-weight: var(--fw-medium);
+                    font-family: "Roboto", Arial, Helvetica, sans-serif;
+
+                    &:hover {
+                        color: var(--color-primary);
+                    }
+                }
+            }
+        }
+    }
+}

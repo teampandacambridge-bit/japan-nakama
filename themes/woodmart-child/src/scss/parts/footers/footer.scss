@@ -1,0 +1,119 @@
+section.pre-footer {
+    padding: var(--padding-md);
+    background-color: var(--color-secondary);
+    border-top: 2px solid rgba(0, 0, 0, 0.336);
+    background: url("../../assets/img/about-us-hero.webp");
+    h2,
+    p {
+        text-align: center;
+        color: var(--color-white);
+        background-color: var(--color-secondary);
+        width: fit-content;
+        margin: 0.25rem auto;
+        padding: 0.25rem;
+    }
+
+    p.terms {
+        font-size: var(--fs-body-small);
+        a {
+            color: white !important;
+            font-weight: 600;
+        }
+    }
+
+    .form-wrap {
+        height: 50px;
+    }
+    .klaviyo-form {
+        display: flex;
+        justify-content: center;
+        height: fit-content;
+
+        > div {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            @include media-screen(md-up) {
+                width: 50%;
+            }
+        }
+    }
+}
+
+footer.main-footer {
+    width: 100%;
+    background-color: var(--color-black);
+    padding: var(--padding-md) var(--padding-sm) 0;
+    h2,
+    p,
+    a {
+        color: var(--color-white);
+    }
+
+    h2 {
+        a {
+            &:hover {
+                color: white !important;
+            }
+        }
+    }
+
+    ul {
+        padding-left: 0 !important;
+    }
+
+    ul.footer-cat-links {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        li {
+            flex: 0 0 50%;
+            a {
+                text-transform: capitalize;
+            }
+        }
+    }
+
+    .links {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+
+        @include media-screen(md-up) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .boiler {
+        border-top: 1px solid white;
+        display: flex;
+        justify-content: space-between;
+        padding-top: var(--padding-sm);
+        p {
+            // font-size: var(--fs-body-small);
+        }
+
+        ul {
+            display: flex;
+
+            li {
+                margin: 0 1rem;
+            }
+        }
+    }
+}
+
+// .main-footer {
+//     .vc_row {
+//         background-color: black !important;
+//         .wpb_column {
+//             background-color: var(--color-black) !important;
+//             color: var(--color-white) !important;
+//         }
+//     }
+// }
+// .footer-container {
+//     background-color: black !important;
+// }
