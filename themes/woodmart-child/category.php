@@ -161,7 +161,7 @@
                     'posts_per_page' => 2,
                     'orderby'        => 'date',
                     'order'          => 'DESC',
-                    'offset'         => 5,
+                    'offset'         => 4,
                     'cat'            => get_queried_object_id(),
                 );
                 $query = new WP_Query($args); ?>
@@ -238,22 +238,28 @@
 
 
             <?php
-            $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+            $paged          = isset($_POST['page']) ? intval($_POST['page']) : 1;
+            $posts_per_page = 8;
+            $skip           = 6; // Posts shown in the sections above (keep in sync with old-funcs.php load_more_posts())
             $args = array(
-                'post_type' => 'post',
-                'posts_per_page' => 8,
-                'paged' => $paged,
-                'category__in' => [$cat_id],
-                'orderby' => 'date',
-                'order' => 'DESC',
-                'offset' => 7,
+                'post_type'      => 'post',
+                'posts_per_page' => $posts_per_page,
+                // Manual offset that folds pagination together with the skipped posts.
+                // (WP_Query's `paged` and `offset` cannot be combined reliably.)
+                'offset'         => $skip + ($paged - 1) * $posts_per_page,
+                'category__in'   => [$cat_id],
+                'orderby'        => 'date',
+                'order'          => 'DESC',
             );
             $query = new WP_Query($args);
+
+            $available = max(0, $query->found_posts - $skip);
+            $max_pages = (int) ceil($available / $posts_per_page);
 
             if ($query->have_posts()) :
                 wp_localize_script('load-more-posts', 'ajax_object', array(
                     'ajax_url' => admin_url('admin-ajax.php'),
-                    'max_pages' => $query->max_num_pages,
+                    'max_pages' => $max_pages,
                     'page_cat' => $cat_id,
                 ));
             ?>
@@ -287,7 +293,7 @@
 
                         <div class="pagination-controls">
                             <button id="prev-page" disabled>Previous</button>
-                            <p>Page <span><?php echo $paged; ?></span> of <span><?php echo $query->max_num_pages; ?></span></p>
+                            <p>Page <span><?php echo $paged; ?></span> of <span><?php echo $max_pages; ?></span></p>
                             <button id="next-page">Next</button>
                         </div>
                     </div>

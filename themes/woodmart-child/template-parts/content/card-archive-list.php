@@ -4,22 +4,31 @@
     <h2>More From Our <?php echo $page_cat['name'] ?> Archive</h2>
     <!-- <?php echo 'CAT ID' . $cat_id ?> -->
     <div id="card-archive-list">
-        <?php $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+        <?php
+        $paged          = isset($_POST['page']) ? intval($_POST['page']) : 1;
+        $posts_per_page = 8;
+        $skip           = 6; // Skip the most recent posts (shown above the archive list)
+
         $args = array(
-            'post_type' => 'post',
-            'posts_per_page' => 8,
-            'paged' => $paged,
-            'category__in' => [$cat_id],
+            'post_type'      => 'post',
+            'posts_per_page' => $posts_per_page,
+            // Manual offset that folds pagination together with the skipped posts.
+            // (WP_Query's `paged` and `offset` cannot be combined reliably.)
+            'offset'         => $skip + ($paged - 1) * $posts_per_page,
+            'category__in'   => [$cat_id],
             'orderby'        => 'date',
             'order'          => 'DESC',
-            'offset'         => 7, // Skip the most recent post
         );
         $query = new WP_Query($args);
 
+        // Total pages available after skipping the most recent posts.
+        $available  = max(0, $query->found_posts - $skip);
+        $max_pages  = (int) ceil($available / $posts_per_page);
+
         wp_localize_script('load-more-posts', 'ajax_object', array(
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'max_pages' => $query->max_num_pages,
-            'page_cat' => $cat_id,
+            'ajax_url'  => admin_url('admin-ajax.php'),
+            'max_pages' => $max_pages,
+            'page_cat'  => $cat_id,
         ));
         ?>
 
@@ -61,7 +70,7 @@
         </ul>
         <div class="pagination-controls">
             <button id="prev-page" disabled>Previous</button>
-            <p>Page <span> <?php echo $paged ?> </span> of <span><?php echo $query->max_num_pages ?></span></p>
+            <p>Page <span> <?php echo $paged ?> </span> of <span><?php echo $max_pages ?></span></p>
             <button id="next-page">Next</button>
         </div>
     </div>

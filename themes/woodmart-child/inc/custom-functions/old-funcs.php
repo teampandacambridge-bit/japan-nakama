@@ -595,22 +595,27 @@ function get_post_categories_data($post_id = null)
 function load_more_posts()
 {
 
-    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $paged    = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $page_cat = isset($_POST['page_cat']) ? intval($_POST['page_cat']) : 1;
 
+    $posts_per_page = 8;
+    $skip           = 6; // Keep in sync with template-parts/content/card-archive-list.php
 
     $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => 8,
-        'paged' => $paged,
-        'category__in' =>
-        $page_cat,
-        'orderby' => 'title',
-        'order'   => 'DESC',
-        // 'offset'         => 7,
+        'post_type'      => 'post',
+        'posts_per_page' => $posts_per_page,
+        // Manual offset that folds pagination together with the skipped posts.
+        // (WP_Query's `paged` and `offset` cannot be combined reliably.)
+        'offset'         => $skip + ($paged - 1) * $posts_per_page,
+        'category__in'   => [$page_cat],
+        'orderby'        => 'date',
+        'order'          => 'DESC',
     );
 
-    $query = new WP_Query($args); ?>
+    $query = new WP_Query($args);
+
+    $available = max(0, $query->found_posts - $skip);
+    $max_pages = (int) ceil($available / $posts_per_page); ?>
     <ul>
         <?php if ($query->have_posts()) : ?>
             <?php while ($query->have_posts()) : $query->the_post(); ?>
@@ -640,7 +645,7 @@ function load_more_posts()
     </ul>
     <div class="pagination-controls">
         <button id="prev-page" disabled>Previous</button>
-        <p>Page <span> <?php echo $paged ?> </span> of <span><?php echo $query->max_num_pages ?></span></p>
+        <p>Page <span> <?php echo $paged ?> </span> of <span><?php echo $max_pages ?></span></p>
         <button id="next-page">Next</button>
     </div>
 <?php
