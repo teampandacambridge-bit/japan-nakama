@@ -1,0 +1,81 @@
+<!--
+  −320°F · NODA MAP × Sadler's Wells — 970×250 (desktop / leaderboard)
+  EMBEDDABLE COMPONENT — drop this whole block into a WordPress template part.
+  • Root is a <div> (.m320d). No <html>/<head>/<body>, no global resets.
+  • All CSS + keyframes namespaced to .m320d, so multiple banners coexist safely.
+  • Pure CSS animation, no JS. Loop 13.5s, 3 paired states.
+  • IMAGE PATH: references images/ relative to this file. In WordPress swap to e.g.
+    <?php echo get_template_directory_uri(); ?>/banners/970x250/images/photo_1.webp
+-->
+<style>
+.m320d{position:relative;width:970px;height:250px;overflow:hidden;background:#0a0b0d;
+  font-family:'Jost','Century Gothic','Futura','Trebuchet MS',system-ui,sans-serif}
+.m320d *{margin:0;padding:0;box-sizing:border-box}
+.m320d .m320d__link{position:absolute;inset:0;z-index:10;text-decoration:none;cursor:pointer;display:block}
+.m320d .m320d__photos{position:absolute;left:0;top:0;width:340px;height:100%;overflow:hidden}
+.m320d .m320d__ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:m320d-cf 13.5s linear infinite}
+.m320d .m320d__ph--1{opacity:1}
+.m320d .m320d__ph--2{animation-delay:4.5s}
+.m320d .m320d__ph--3{animation-delay:9s}
+.m320d .m320d__fade{position:absolute;left:250px;top:0;width:170px;height:100%;background:linear-gradient(90deg,transparent,#0a0b0d)}
+.m320d .m320d__noda{position:absolute;left:16px;top:16px;width:46px;height:46px;z-index:4}
+.m320d .m320d__circle{position:absolute;border-radius:50%;z-index:2}
+.m320d .m320d__circle--blue{left:430px;top:-26px;width:76px;height:76px;background:#1ba3e0}
+.m320d .m320d__circle--red{left:512px;top:-50px;width:102px;height:102px;background:#d8262b}
+.m320d .m320d__circle--redlight{left:586px;top:-8px;width:60px;height:60px;background:#ec6f68}
+.m320d .m320d__content{position:absolute;left:360px;top:0;width:380px;height:100%;z-index:3;display:flex;flex-direction:column;justify-content:center}
+.m320d .m320d__title{font-size:60px;font-weight:700;letter-spacing:-.03em;color:#fff;line-height:.9}
+.m320d .m320d__deg{font-size:.5em;vertical-align:.55em}
+.m320d .m320d__sub{font-size:10px;font-weight:500;letter-spacing:.18em;color:#cbc9c1;margin-top:8px}
+.m320d .m320d__tagwrap{position:relative;height:48px;margin-top:12px}
+.m320d .m320d__yl{position:absolute;left:0;top:0;font-size:16px;font-weight:700;line-height:1.25;color:#f5c518;max-width:340px;opacity:0;animation:m320d-tag 13.5s ease-in-out infinite}
+.m320d .m320d__yl--2{animation-delay:4.5s}
+.m320d .m320d__yl--3{animation-delay:9s}
+.m320d .m320d__cta{position:absolute;right:24px;top:0;height:100%;z-index:3;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:18px}
+.m320d .m320d__dates{text-align:right}
+.m320d .m320d__when{font-size:24px;font-weight:700;color:#fff;line-height:1}
+.m320d .m320d__price{font-size:11px;font-weight:500;color:#cbc9c1}
+.m320d .m320d__btn{display:flex;align-items:center;justify-content:center;gap:11px;width:188px;padding:11px 22px;background:#e2001a;color:#fff;font-size:15px;font-weight:700;letter-spacing:.01em}
+.m320d .m320d__btn svg{flex:none;display:block}
+.m320d .m320d__lock{display:flex;align-items:center;gap:8px}
+.m320d .m320d__mark{width:40px;height:40px;background:#fff;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);place-items:center;padding:3px;color:#e2001a;font-weight:800;font-size:7px;line-height:1}
+.m320d .m320d__word{font-size:11px;font-weight:700;letter-spacing:.1em;color:#fff;line-height:1.15}
+@keyframes m320d-cf{0%{opacity:1}30%{opacity:1}34%{opacity:0}96%{opacity:0}100%{opacity:1}}
+@keyframes m320d-tag{0%{opacity:0;transform:translateY(8px)}3%{opacity:1;transform:none}30%{opacity:1;transform:none}33%{opacity:0;transform:translateY(-8px)}100%{opacity:0;transform:translateY(8px)}}
+</style>
+<div class="m320d">
+  <div class="m320d__photos">
+    <img class="m320d__ph m320d__ph--1" src="images/photo_1.webp" alt="">
+    <img class="m320d__ph m320d__ph--2" src="images/photo_2.webp" alt="">
+    <img class="m320d__ph m320d__ph--3" src="images/photo_3.webp" alt="">
+  </div>
+  <div class="m320d__fade"></div>
+  <img class="m320d__noda" src="images/nodamap.png" alt="NODA MAP">
+  <span class="m320d__circle m320d__circle--blue"></span>
+  <span class="m320d__circle m320d__circle--red"></span>
+  <span class="m320d__circle m320d__circle--redlight"></span>
+  <div class="m320d__content">
+    <div class="m320d__title">&minus;320<span class="m320d__deg">&deg;</span>F</div>
+    <div class="m320d__sub">MINUS THREE TWENTY FAHRENHEIT</div>
+    <div class="m320d__tagwrap">
+      <div class="m320d__yl m320d__yl--1">A Faustian descent through myth, memory &amp; other bad ideas</div>
+      <div class="m320d__yl m320d__yl--2">Hideki Noda&rsquo;s madcap fable, straight from Tokyo to London</div>
+      <div class="m320d__yl m320d__yl--3">&ldquo;A visually dazzling, madcap joy&rdquo; &middot; Time Out</div>
+    </div>
+  </div>
+  <div class="m320d__cta">
+    <div class="m320d__dates">
+      <div class="m320d__when">2 &ndash; 11 JULY 2026</div>
+      <div class="m320d__price">Prices from &pound;15</div>
+    </div>
+    <span class="m320d__btn">
+      <svg width="28" height="18" viewBox="0 0 30 20" fill="none" aria-hidden="true"><path d="M4 3H26a1.5 1.5 0 0 1 1.5 1.5V8a2 2 0 0 0 0 4v3.5A1.5 1.5 0 0 1 26 17H4a1.5 1.5 0 0 1-1.5-1.5V12a2 2 0 0 0 0-4V4.5A1.5 1.5 0 0 1 4 3Z" stroke="#fff" stroke-width="1.6"/><rect x="6" y="6.4" width="7.6" height="7.2" rx="1.2" stroke="#fff" stroke-width="1.6"/><path d="M16.6 6.6V13.4" stroke="#fff" stroke-width="1.6" stroke-dasharray="1.8 2"/></svg>
+      <span>Get Tickets</span>
+    </span>
+    <div class="m320d__lock">
+      <div class="m320d__mark"><span>S</span><span>A</span><span>D</span><span>L</span><span>E</span><span>R</span><span>S</span><span>W</span><span>E</span><span>L</span><span>L</span><span>S</span></div>
+      <div class="m320d__word">SADLER&rsquo;S<br>WELLS</div>
+    </div>
+  </div>
+  <a class="m320d__link" href="https://www.sadlerswells.com/whats-on/noda-map-minus-320-fahrenheit/" target="_blank" rel="noopener" aria-label="&minus;320&deg;F — Book tickets"></a>
+</div>
