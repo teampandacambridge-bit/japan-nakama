@@ -380,5 +380,29 @@ window.addEventListener('load', function () {
 
     sidebarVerticalAd();
 
+    function sidebarBottomAd() {
+        const sections = document.querySelectorAll('.ad-sidebar-bottom');
+        if (!sections.length) return;
+
+        sections.forEach(section => {
+            const imgBase = section.dataset.themeUri + '/assets/ads/sidebar-bottom/';
+            const images = [1, 2, 3].map(n => `${imgBase}sidebar-bottom-ad-${n}.webp`);
+            const img = section.querySelector('.ad-img');
+            if (!img) return;
+
+            let currentIndex = 0;
+
+            function showImage() {
+                img.src = images[currentIndex];
+                currentIndex = (currentIndex + 1) % images.length;
+            }
+
+            showImage();
+            setInterval(showImage, 2500);
+        });
+    }
+
+    sidebarBottomAd();
+
 })
 

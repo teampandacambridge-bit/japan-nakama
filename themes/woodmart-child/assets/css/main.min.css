@@ -2344,6 +2344,19 @@ header#post-header {
   aspect-ratio: 300/600;
 }
 
+.ad-sidebar-bottom {
+  margin: 2rem auto 20px;
+}
+.ad-sidebar-bottom .ad-link {
+  display: block;
+}
+.ad-sidebar-bottom .ad-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1251/2506;
+}
+
 .ad-horizontal .ad-animated-hompage-top .ad-img--sm,
 .ad-horizontal .ad-animated-hompage-top .ad-img--lg {
   display: none;
