@@ -19,10 +19,10 @@ $author_avatar = get_avatar($author_name, 96);
 <?php get_template_part('template-parts/headers/header-post'); ?>
 
 <div id="article" class="container container-medium">
-    <div class="row">
-        <?php get_template_part('template-parts/content/post', 'main'); ?>
-        <?php get_template_part('template-parts/sidebar/sidebar', 'post'); ?>
-    </div>
+
+    <?php get_template_part('template-parts/content/post', 'main'); ?>
+    <?php get_template_part('template-parts/sidebar/sidebar', 'post'); ?>
+
 
 </div>
 

@@ -1,4 +1,4 @@
-<main id="post-content" class="col-12 col-md-9" role="main">
+<main id="post-content" role="main">
     <article>
         <?php the_content(); ?>
     </article>

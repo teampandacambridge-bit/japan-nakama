@@ -2126,6 +2126,56 @@ header#post-header {
   }
 }
 
+aside.side,
+#post-sidebar {
+  padding: var(--padding-sm);
+  display: none;
+}
+@media only screen and (min-width: 768px) {
+  aside.side,
+  #post-sidebar {
+    display: block;
+    align-self: stretch;
+  }
+}
+aside.side .fixed-container,
+#post-sidebar .fixed-container {
+  display: none;
+  width: 100%;
+}
+@media only screen and (min-width: 768px) {
+  aside.side .fixed-container,
+  #post-sidebar .fixed-container {
+    display: block;
+    position: sticky;
+    top: 100px;
+  }
+}
+
+.side-ad-placeholder {
+  height: 250px;
+  background: grey;
+}
+
+#article {
+  display: block;
+}
+@media only screen and (min-width: 768px) {
+  #article {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  #article #post-content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  #article #post-sidebar {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
 /* ==========================================
    Nakama Coupons Component
    ========================================== */
@@ -3345,46 +3395,6 @@ footer.main-footer .boiler ul li {
   padding-left: 15px;
 }
 
-aside.side {
-  padding: var(--padding-sm);
-  flex-direction: column;
-  display: none;
-  height: 100%;
-}
-@media only screen and (min-width: 768px) {
-  aside.side {
-    display: flex;
-  }
-}
-aside.side .fixed-container {
-  padding-top: 20px;
-  display: none;
-  height: 100%;
-  width: 100%;
-  flex-grow: 0.8;
-}
-@media only screen and (min-width: 768px) {
-  aside.side .fixed-container {
-    display: block;
-  }
-}
-aside.side .fixed-container .fixed-target {
-  height: fit-content;
-  width: 100%;
-  position: sticky;
-  top: 100px;
-}
-
-@media only screen and (min-width: 768px) {
-  .home aside.side .fixed-container {
-    height: 2720px;
-  }
-}
-.side-ad-placeholder {
-  height: 250px;
-  background: grey;
-}
-
 .rt-reading-time {
   font-size: 1.3rem;
   color: var(--color-secondary);
@@ -3549,15 +3559,6 @@ a.article-ad {
 
 .page-template-location-landing section.card-full-width {
   margin-bottom: 1rem;
-}
-
-aside#post-sidebar {
-  display: none !important;
-}
-@media only screen and (min-width: 768px) {
-  aside#post-sidebar {
-    display: block !important;
-  }
 }
 
 * {

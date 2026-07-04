@@ -6,3 +6,69 @@
         display: block;
     }
 }
+
+// Sidebar sticky advert.
+// Homepage sidebar is `.side`; post/archive sidebar is `#post-sidebar`.
+// Both asides are flex children of a row that stretches them to the full
+// height of the main content column, so each aside is as tall as the article.
+// Making `.fixed-container` `position: sticky` inside that full-height aside
+// lets the advert follow the reader all the way down to the bottom of the
+// page — on any content length, with no fixed pixel height.
+aside.side,
+#post-sidebar {
+    padding: var(--padding-sm);
+    display: none;
+
+    // `block`, not `flex`: the aside is a flex CHILD of `#article`, which
+    // stretches it to the full height of the content column. Keeping the aside
+    // a plain block makes `.fixed-container` a normal in-flow child, so its
+    // `position: sticky` travels the full height of the aside and follows the
+    // reader to the bottom of the page.
+    @include media-screen(md-up) {
+        display: block;
+        // Force the flex child to fill the row's full height, in case another
+        // rule sets `align-self` on it. This is what makes the aside as tall
+        // as the article content column.
+        align-self: stretch;
+    }
+
+    .fixed-container {
+        display: none;
+        width: 100%;
+
+        @include media-screen(md-up) {
+            display: block;
+            position: sticky;
+            top: 100px;
+        }
+    }
+}
+
+.side-ad-placeholder {
+    height: 250px;
+    background: grey;
+}
+
+// Single-article layout row. Replaces the old Bootstrap `.row` + `col-md-*`
+// classes with plain flexbox. `align-items: stretch` (the flex default) makes
+// the sidebar column grow to the full height of the article content column,
+// which gives the sticky advert its full travel range.
+#article {
+    display: block;
+
+    @include media-screen(md-up) {
+        display: flex;
+        align-items: stretch;
+        gap: 1rem;
+
+        #post-content {
+            flex: 1 1 auto;
+            min-width: 0; // let the content column shrink instead of overflowing
+        }
+
+        #post-sidebar {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+    }
+}

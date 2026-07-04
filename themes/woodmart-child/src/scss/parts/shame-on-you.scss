@@ -28,52 +28,6 @@
 //     position: relative;
 // }
 
-aside.side {
-    padding: var(--padding-sm);
-    flex-direction: column;
-    display: none;
-    height: 100%;
-
-    @include media-screen(md-up) {
-        display: flex;
-    }
-    // h2 {
-    //     font-size: 1.2rem;
-    // }
-
-    .fixed-container {
-        padding-top: 20px;
-        display: none;
-        height: 100%;
-        width: 100%;
-        flex-grow: 0.8;
-        @include media-screen(md-up) {
-            display: block;
-        }
-        .fixed-target {
-            height: fit-content;
-            width: 100%;
-            // background-color: yellow;
-            position: sticky;
-            top: 100px;
-        }
-    }
-}
-@include media-screen(md-up) {
-    .home {
-        aside.side {
-            .fixed-container {
-                height: 2720px;
-            }
-        }
-    }
-}
-
-.side-ad-placeholder {
-    height: 250px;
-    background: grey;
-}
-
 #post-footer {
     // background-color: pink;
 }
@@ -271,9 +225,12 @@ a.article-ad {
     margin-bottom: 1rem;
 }
 
-aside#post-sidebar {
-    display: none !important;
-    @include media-screen(md-up) {
-        display: block !important;
-    }
-}
+// aside#post-sidebar {
+//     display: none !important;
+//     @include media-screen(md-up) {
+//         // `flex` (a column), not `block`, so the sidebar stretches to the full
+//         // height of the content column and the sticky `.fixed-container` advert
+//         // has room to travel to the bottom of the page. `block` traps it.
+//         display: flex !important;
+//     }
+// }
