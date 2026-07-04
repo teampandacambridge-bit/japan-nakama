@@ -2344,19 +2344,6 @@ header#post-header {
   aspect-ratio: 300/600;
 }
 
-.ad-sidebar-bottom {
-  margin: 2rem auto 20px;
-}
-.ad-sidebar-bottom .ad-link {
-  display: block;
-}
-.ad-sidebar-bottom .ad-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1251/2506;
-}
-
 .ad-horizontal .ad-animated-hompage-top .ad-img--sm,
 .ad-horizontal .ad-animated-hompage-top .ad-img--lg {
   display: none;
@@ -4436,7 +4423,7 @@ body.author main a.post-card .text {
 }
 @media only screen and (min-width: 768px) {
   .contain-homepage-bottom .side {
-    width: 20%;
+    width: 25%;
     display: block;
     padding: 2rem 1rem 1rem 1rem;
   }
