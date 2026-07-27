@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "create-block/advert-horizontal",
   "version": "0.1.0",
-  "title": "advert-horizontal",
+  "title": "Advert (Horizonta)",
   "category": "widgets",
   "icon": "location",
   "description": "Horizontal advert",

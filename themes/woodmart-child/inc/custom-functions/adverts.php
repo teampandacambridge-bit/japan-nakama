@@ -156,54 +156,37 @@ function display_responsive_ad($index = 1)
 
 
 
-function h2_ads_1($content)
+/**
+ * Inject in-content adverts before every Nth <h2> in single post content,
+ * alternating between the two "in-content" nakama-adverts slots.
+ *
+ * Replaces the old h2_ads_1 / h2_ads_2 pair (two overlapping injectors using
+ * the legacy ad system). One pass, predictable cadence, plugin-driven ads.
+ */
+function jn_inject_in_content_ads($content)
 {
-    if (is_singular() && false !== strpos($content, '<h2')) {
-        ob_start();
-        get_template_part('template-parts/ads/ad-horizontal');
-        $ad_code = ob_get_clean();
-
-        $pattern = '/(<h2.*?>)/i';
-        $counter = 3;
-
-        $content = preg_replace_callback($pattern, function ($matches) use (&$counter, $ad_code) {
-            $counter++;
-            if ($counter % 6 == 0) {
-                return $ad_code . $matches[0];
-            }
-            return $matches[0];
-        }, $content);
+    // Single posts only, and only if the plugin + some headings are present.
+    if (! is_singular('post') || ! function_exists('nakama_advert') || strpos($content, '<h2') === false) {
+        return $content;
     }
 
-    return $content;
-}
-add_filter('the_content', 'h2_ads_1');
+    $every  = 3;   // insert an ad before every 3rd heading
+    $slots  = ['in-content-1', 'in-content-2']; // alternate between these
+    $count  = 0;   // headings seen
+    $placed = 0;   // ads placed (drives the alternation)
 
-function h2_ads_2($content)
-{
-    // Run ONLY on single posts
-    if (is_singular() && strpos($content, '<h2') !== false) {
+    return preg_replace_callback('/<h2\b[^>]*>/i', function ($matches) use (&$count, &$placed, $every, $slots) {
+        $count++;
 
-        // Get ad code as a string
-        $ad_code = display_responsive_ad(2);
-
-        // Match any <h2> opening tag
-        $pattern = '/(<h2.*?>)/i';
-
-        $counter = 0;
-
-        $content = preg_replace_callback($pattern, function ($matches) use (&$counter, $ad_code) {
-            $counter++;
-
-            // Insert ad before every 3rd <h2>
-            if ($counter % 6 === 0) {
-                return $ad_code . $matches[0];
-            }
-
+        if ($count % $every !== 0) {
             return $matches[0];
-        }, $content);
-    }
+        }
 
-    return $content;
+        $slot = $slots[$placed % count($slots)];
+        $placed++;
+
+        $ad = nakama_advert($slot, false); // return, don't echo
+        return $ad . $matches[0];
+    }, $content);
 }
-add_filter('the_content', 'h2_ads_2');
+add_filter('the_content', 'jn_inject_in_content_ads');

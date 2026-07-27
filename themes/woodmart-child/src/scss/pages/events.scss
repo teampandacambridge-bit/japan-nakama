@@ -1,0 +1,972 @@
+// ==========================================================================
+// Events archive (category-events.php)
+// Mobile-first. Desktop layout:
+//   [ filter        ][ sidebar ]
+//   [ heading       ][ sidebar ]
+//   [ desc          ][ sidebar ]
+//   [ card ][ card  ][ sidebar ]   <- upcoming cards, 2-up in left 50%
+//   [ card ][ card  ][ sidebar ]
+//   [ advert full-width          ]
+//   [ Past Events heading (100%) ]
+//   [ card ][ card ][ card ]       <- past cards, 3-up
+//   [ card    ][ card    ]         <- then 2-up
+// ==========================================================================
+
+// ==========================================================================
+// Event card tags (.card-tags) — shared by every card via jn_render_event_tags().
+// Native post tags, display-only content indicator (not filtering/AJAX).
+// ==========================================================================
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-x-small);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .tag {
+        font-size: var(--fs-body-extra-small);
+        font-weight: var(--fw-bold);
+        padding: calc(var(--padding-sm) / 4) calc(var(--padding-sm) / 2);
+        background: var(--color-primary);
+        color: var(--color-white);
+        border-radius: var(--border-radius-reg);
+    }
+}
+
+// ==========================================================================
+// Event meta list (date · address · cost) — shared by every event card via
+// jn_render_event_meta(). Small icon on the left, grey text (matching the
+// event cards). Cards on dark grounds override the colour locally.
+// ==========================================================================
+.card-meta-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+p.card-meta {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.35rem;
+    margin: 0;
+    font-size: 0.8rem; // small at every breakpoint (no desktop bump)
+    line-height: 1.3;
+    font-weight: var(--fw-regular);
+    color: var(--color-light-grey);
+
+    &__icon {
+        flex: 0 0 auto;
+        margin-top: 0.15em; // sit on the text's first line
+    }
+}
+
+// ==========================================================================
+// Block-driven card badges — pinned to the card thumbnail corners, separate
+// from the native-tag pill list. Positioning parent (the thumbnail link/
+// image) must be position: relative (or absolute).
+//   .card-badges--left     → top-left  (status tag, then Free) — flex row
+//   .event-sponsored-badge → top-right (event-overview isSponsored)
+// Order left→right: status badge, then Free badge.
+// ==========================================================================
+
+// Shared pill look for every block-driven badge.
+.event-status-badge,
+.event-free-badge,
+.event-sponsored-badge,
+.event-venue-badge {
+    padding: calc(var(--padding-sm) / 4) calc(var(--padding-sm) / 2);
+    background: #00000090;
+    color: var(--color-white);
+    font-size: var(--fs-body-extra-small);
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.5px;
+    border-radius: var(--border-radius-small);
+    text-transform: uppercase;
+}
+
+// Card tags render as authored — first letter capital, rest lowercase
+// (e.g. "Free", "On Now", "Sponsored"). No uppercase transform.
+// (Venue is free-text and keeps its own casing.)
+
+// Top-left cluster: status + free sit side by side, no overlap.
+.card-badges--left {
+    position: absolute;
+    top: var(--space-small);
+    left: var(--space-small);
+    z-index: 3; // above image + gradient
+    display: flex;
+    gap: var(--space-x-small);
+}
+
+// Sponsored: independent, top-right.
+.event-sponsored-badge {
+    position: absolute;
+    top: var(--space-small);
+    right: var(--space-small);
+    z-index: 3;
+}
+
+// Status colour variants — a coordinated set, all with white text.
+//   on-now      → green  (live / go)
+//   last-chance → orange (urgency)
+//   upcoming    → red    (on-brand)
+//   later       → slate  (further out)
+//   past        → grey   (inactive)
+.event-status-badge {
+    &--on-now {
+        background: #1e9e5add;
+    }
+
+    &--last-chance {
+        background: #d5122add;
+    }
+
+    &--upcoming {
+        background: #e8820cdd;
+    }
+
+    &--later {
+        background: #5b6b7add;
+    }
+
+    &--past {
+        background: #8a8580dd;
+    }
+}
+
+// ==========================================================================
+// Page title (#page-title)
+//   <p>    kicker / eyebrow
+//   <h1>   page heading
+//   <p>    lead / sub-copy
+// Base type (h1, p sizes/colours) comes from base/type.scss; this only adds
+// the section spacing and the two paragraph roles. All left-aligned.
+// ==========================================================================
+
+// Eyebrow / kicker (first paragraph)
+p.eyebrow {
+    margin-bottom: var(--space-small);
+    font-size: var(--fs-body-small);
+    font-weight: var(--fw-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-black);
+}
+
+#page-title {
+    text-align: left;
+    padding: var(--space-regular);
+
+    h1 {
+        margin-bottom: var(--space-regular);
+        text-align: left;
+    }
+
+    // Lead / sub-copy (last paragraph)
+    p:last-child {
+        margin-bottom: 0;
+        font-size: var(--fs-body-small);
+        color: var(--color-secondary);
+    }
+
+    // Desktop: centre the H1 and sub-copy (mobile stays left-aligned).
+    @include media-screen(md-up) {
+        text-align: center;
+
+        h1 {
+            text-align: center;
+        }
+    }
+}
+
+// ==========================================================================
+// Hero cards row (#cards_hero)
+//   [ main card (50%) ][ single card (50%) ]
+//   [ main card       ][ single card       ]
+//   [ main card       ][ single card       ]
+// Left: one large card spanning all rows. Right: three stacked single cards.
+// ==========================================================================
+#cards_hero {
+    display: grid;
+    gap: var(--space-large);
+    grid-template-columns: 1fr; // mobile: stacked
+    padding: var(--space-regular);
+
+    @include media-screen(md-up) {
+        grid-template-columns: 2fr 1fr; // 50 / 50
+        align-items: stretch;
+    }
+
+    // Large featured card: full-bleed image with content overlaid.
+    // A bottom-to-top black gradient sits between image and text for contrast.
+    .hero-main-card {
+        position: relative;
+        overflow: hidden;
+        min-height: 420px;
+        border-radius: var(--border-radius-reg);
+
+        @include media-screen(md-up) {
+            min-height: 300px;
+        }
+
+        // Image + gradient fill the whole card (absolute layers)
+        &__link,
+        &__image,
+        &__image img,
+        &__gradient {
+            position: absolute;
+            inset: 0;
+        }
+
+        &__link {
+            z-index: 1; // clickable image layer, below the body text
+            display: block;
+        }
+
+        &__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        // Bottom → top: solid black at base, ~50% mid, transparent at top
+        &__gradient {
+            background: linear-gradient(to top, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        // Content overlays image + gradient, pinned to the bottom
+        &__body {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-small);
+            padding: var(--space-large);
+            height: 100%;
+            justify-content: flex-end;
+            pointer-events: none; // let clicks fall through to the image link…
+
+            a {
+                pointer-events: auto; // …except on actual links/buttons
+            }
+        }
+
+        // White text for contrast against the dark gradient
+        &__heading,
+        &__heading a,
+        &__desc {
+            color: var(--color-white);
+        }
+
+        // Meta text is white on the dark hero gradient (overrides the grey).
+        .card-meta {
+            color: var(--color-white);
+        }
+
+        &__heading {
+            margin: 0;
+            margin-bottom: var(--space-small);
+            a {
+                font-size: var(--fs-heading-regular);
+            }
+        }
+
+        &__dates,
+        &__location,
+        &__desc {
+            margin: 0;
+            font-size: var(--fs-body-small);
+        }
+
+        &__location {
+            font-weight: var(--fw-regular);
+            font-size: var(--fs-body-small);
+        }
+
+        &__dates {
+            color: var(--color-white);
+            font-weight: var(--fw-regular);
+        }
+
+        &__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-regular);
+            align-items: center;
+            margin-top: var(--space-small);
+            font-size: var(--fs-body-small);
+        }
+
+        &__cta {
+            padding: var(--padding-xs) var(--padding-sm);
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-radius: var(--border-radius-reg);
+            font-weight: var(--fw-bold);
+            font-size: var(--fs-body-small);
+        }
+
+        &__read-more {
+            color: var(--color-white);
+            font-weight: var(--fw-bold);
+            text-decoration: underline;
+        }
+    }
+
+    // Right column: three single cards stacked.
+    // Each card: image (50%) | body (50%) with tags > title > date.
+    .hero-single-cards {
+        display: grid;
+        gap: var(--space-large);
+        grid-template-columns: 1fr;
+
+        // Desktop: 3 cards divide the main card's height equally
+        @include media-screen(md-up) {
+            grid-auto-rows: 1fr;
+        }
+
+        .hero-single-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr; // image 50% | body 50%
+            overflow: hidden;
+            background: var(--color-lightest-grey);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-reg);
+
+            &__image {
+                position: relative; // anchor for .event-free-badge
+
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            // Right 50%: tags > title > date, stacked top-to-bottom
+            &__body {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-small);
+                padding: var(--space-regular);
+            }
+
+            &__heading {
+                margin: 0;
+
+                a {
+                    font-size: var(--fs-body-regular);
+                }
+            }
+
+            &__dates {
+                margin: 0;
+                color: var(--color-light-grey);
+                font-weight: var(--fw-regular);
+                font-size: var(--fs-body-small);
+            }
+        }
+    }
+}
+
+// Full-width advert placeholder — 100% of the container width.
+// Mobile: 200px tall. Desktop: 250px tall. Vertical gap matches the
+// --space-large rhythm used by the grids/sections around it.
+.events-advert {
+    background-color: black;
+}
+
+// Full-width advert slot — holds a nakama_advert('horizontal') ad, which
+// brings its own markup. We only constrain layout: centred, capped width.
+.events-advert__slot {
+    display: flex;
+    justify-content: center;
+    max-width: 750px;
+    max-height: 250px;
+    height: auto;
+
+    margin: var(--space-large) auto;
+
+    // The ad content fills the slot without overflowing.
+    img,
+    picture,
+    video,
+    iframe {
+        max-width: 100%;
+        height: auto;
+    }
+
+    // Inside the archive grid, the parent's gap already spaces it — avoid
+    // doubling up with the margin above.
+    #events-archive & {
+        margin: 0 auto;
+    }
+}
+
+#events-archive {
+    display: grid;
+    gap: var(--space-large);
+    padding: var(--space-regular);
+
+    // -------- UPCOMING: content + sidebar --------
+    .events-top {
+        display: grid;
+        gap: var(--space-large);
+
+        // Desktop: 50% content / 50% sidebar, sidebar spanning full height
+        @include media-screen(md-up) {
+            grid-template-columns: 2fr 1fr;
+            align-items: start;
+        }
+    }
+
+    // Left column: internal stack (filter, heading, desc) + 2-up card grid
+    .events-content {
+        display: grid;
+        gap: var(--space-large);
+    }
+
+    .events-heading {
+        h1,
+        h2 {
+            margin: 0;
+        }
+    }
+
+    .events-desc {
+        p {
+            margin: 0;
+            font-size: var(--fs-body-regular);
+        }
+    }
+
+    // Upcoming cards: single column on mobile, 2-up from md.
+    // Reserve a stable min-height (3 rows + 2 gaps) so the container doesn't
+    // collapse — and shift the page below — when the filter changes the count.
+    .events-cards--upcoming {
+        // Approx height of one content-sized card (16:9 image + body text) at
+        // the desktop column width. Reserves ~3 rows so the grid doesn't
+        // collapse and shift the page when the AJAX filter changes the count.
+        // Tune if the card content or column width changes materially.
+        --event-card-h: 320px;
+
+        display: grid;
+        gap: var(--space-large);
+        grid-template-columns: 1fr;
+
+        @include media-screen(md-up) {
+            grid-template-columns: repeat(2, 1fr);
+            min-height: calc(3 * var(--event-card-h) + 2 * var(--space-large));
+            align-content: start; // rows sit at the top, not stretched
+        }
+    }
+
+    // Sidebar: featured article, upcoming events list, advert.
+    // Sticks alongside the content column on desktop.
+    // Sidebar: 4 stacked sections — featured card, what's-on list, advert,
+    // signup CTA. The aside is a transparent container; each section is a card.
+    .events-sidebar {
+        display: grid;
+        gap: var(--space-large);
+        align-content: start;
+
+        @include media-screen(md-up) {
+            position: sticky;
+            top: var(--space-large);
+        }
+
+        // Shared card treatment for each section — skip sections that bring
+        // their own style (e.g. the signup CTA uses the dark .event-signup-cta).
+        .sidebar-section:not(.event-signup-cta) {
+            padding: var(--space-regular);
+            background: var(--color-lightest-grey);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-reg);
+        }
+
+        .sidebar-section__title {
+            margin: 0 0 var(--space-regular);
+            font-size: var(--fs-heading-small);
+        }
+
+        // 1. Featured image card — 1:1 image on top, text below (image bleeds
+        // to the section edges; the body has its own padding).
+        .sidebar-featured {
+            padding: 0;
+            overflow: hidden;
+
+            &__image {
+                display: block;
+                height: 200px;
+                overflow: hidden;
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            &__body {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-small);
+                // No top padding — the "Featured Event" tag sits flush against
+                // the image; the rest of the body keeps its bottom spacing.
+                padding: 0 0 var(--space-regular);
+            }
+
+            // Full-width "Featured Event" tag
+            &__tag {
+                display: block;
+                width: 100%;
+                padding: var(--padding-xs) var(--padding-sm);
+                background: var(--color-black);
+                color: var(--color-white);
+
+                font-size: var(--fs-body-small);
+                font-weight: var(--fw-bold);
+                letter-spacing: 0.5px;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            &__heading {
+                margin: 0;
+                font-size: var(--fs-heading-small);
+            }
+
+            &__dates {
+                margin: 0;
+                font-weight: var(--fw-regular);
+                font-size: var(--fs-body-small);
+            }
+
+            &__location {
+                margin: 0;
+                font-size: var(--fs-body-small);
+                color: var(--color-secondary);
+            }
+
+            // Full-width CTA button — brand red @ 75%, solid red on hover.
+            &__cta {
+                display: block;
+                width: 100%;
+                padding: var(--padding-xs) var(--padding-sm);
+                background: rgba(255, 0, 0, 0.75);
+                color: var(--color-white);
+                border-radius: var(--border-radius-reg);
+                font-weight: var(--fw-bold);
+                text-align: center;
+                margin-top: var(--space-regular);
+                transition: background 0.15s ease;
+
+                &:hover,
+                &:focus-visible {
+                    background: var(--color-primary);
+                }
+            }
+        }
+
+        // 2. What's On — numbered list, items divided by a light grey line
+        .sidebar-whats-on {
+            .eyebrow {
+                margin-bottom: var(--space-regular);
+            }
+        }
+
+        .sidebar-whats-on__list {
+            counter-reset: whats-on; // drives the 1, 2, 3… numbers
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .sidebar-whats-on__item {
+            counter-increment: whats-on;
+            padding: var(--space-regular) 0;
+            border-bottom: 1px solid var(--color-border);
+
+            &:first-child {
+                padding-top: 0;
+            }
+            &:last-child {
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+
+            // Two columns: number (10%) | content (90%). Numbers align down
+            // the left, content aligns down the right, regardless of length.
+            a {
+                display: flex;
+                gap: var(--space-small);
+                align-items: flex-start;
+            }
+        }
+
+        // Number column (10%) — digit comes from the CSS counter.
+        .sidebar-whats-on__number {
+            flex: 0 0 10%;
+            font-size: calc(var(--fs-body-regular) * 2); // double size
+            line-height: var(--lh-small);
+            font-weight: var(--fw-bold);
+            color: var(--color-black);
+
+            &::before {
+                content: counter(whats-on);
+            }
+        }
+
+        // Content column (90%)
+        .sidebar-whats-on__content {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-x-small);
+            min-width: 0; // allow text to wrap instead of overflowing
+        }
+
+        .sidebar-whats-on__heading {
+            margin: 0;
+            font-size: var(--fs-body-regular);
+            line-height: var(--lh-small);
+        }
+
+        .sidebar-whats-on__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-small);
+            align-items: center;
+        }
+
+        .sidebar-whats-on__date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: var(--fs-body-small);
+            color: var(--color-light-grey);
+            font-weight: var(--fw-regular);
+
+            .card-meta__icon {
+                flex: 0 0 auto;
+            }
+        }
+
+        // 3. Advert — holds a nakama_advert('vertical') ad (its own markup).
+        // Named .sidebar-ad (not .sidebar-advert) to avoid the pre-existing
+        // parts/sidebar-advert.scss rule that hides .sidebar-advert on mobile.
+        .sidebar-ad {
+            padding: 0;
+            border: none;
+            // 300px where there's room, capped to the container so it never
+            // overflows on narrow (~320px) viewports.
+            width: 100%;
+            background-color: black;
+            // @include media-screen(md-up) {
+            //     width: 300px;
+            // }
+
+            max-width: 100%;
+        }
+
+        .sidebar-ad__slot {
+            display: flex;
+            justify-content: center;
+            width: 280px;
+            margin: 0 auto;
+
+            @include media-screen(md-up) {
+                width: 100%;
+            }
+
+            img,
+            picture,
+            video,
+            iframe {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        // 4. Signup CTA uses the shared .event-signup-cta style (below).
+    }
+
+    // Shared "submit an event" signup CTA — solid dark panel, white text.
+    // Used by the sidebar section (.sidebar-signup) and the full-width CTA
+    // card (.events-cta__card--submit).
+    .event-signup-cta {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-small);
+        padding: var(--space-regular);
+        background: var(--color-black);
+        border: 1px solid var(--color-secondary);
+        border-radius: var(--border-radius-reg);
+
+        .eyebrow {
+            margin: 0;
+            color: var(--color-white);
+        }
+
+        &__heading {
+            margin: 0;
+            color: var(--color-white);
+            font-size: var(--fs-heading-small);
+        }
+
+        &__desc {
+            margin: 0;
+            color: var(--color-white);
+            font-size: var(--fs-body-small);
+        }
+
+        // "Got an event" CTA — brand red @ 75%, solid red on hover.
+        &__cta {
+            align-self: flex-start;
+            margin-top: var(--space-small);
+            padding: var(--padding-xs) var(--padding-md);
+            background: rgba(255, 0, 0, 0.75);
+            color: var(--color-white);
+            border-radius: var(--border-radius-reg);
+            font-weight: var(--fw-bold);
+            transition: background 0.15s ease;
+
+            &:hover,
+            &:focus-visible {
+                background: var(--color-primary);
+            }
+        }
+
+        // Klaviyo embed slot
+        &__form {
+            margin-top: var(--space-small);
+        }
+
+        // Small print under the form
+        &__smallprint {
+            margin: 0;
+            font-size: var(--fs-body-small);
+            color: var(--color-white);
+            opacity: 0.8;
+
+            a {
+                color: var(--color-white);
+                text-decoration: underline;
+            }
+        }
+
+        // Newsletter variant — same layout, different (solid) background.
+        &--newsletter {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+    }
+
+    // Filter pills (All / Free Events)
+    .events-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-small);
+
+        &__pill {
+            padding: var(--padding-xs) calc(var(--padding-xs) * 4);
+            background: var(--color-white);
+            color: var(--color-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-reg);
+            font-size: var(--fs-body-extra-small);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            transition:
+                background 0.15s ease,
+                color 0.15s ease,
+                border-color 0.15s ease;
+
+            &:hover {
+                border-color: var(--color-black);
+                color: var(--color-black);
+            }
+
+            &.is-active {
+                background: var(--color-black);
+                border-color: var(--color-black);
+                color: var(--color-white);
+            }
+        }
+    }
+
+    // Loading + empty states for the filtered grid
+    .events-cards--upcoming {
+        &.is-loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+
+    .events-cards__empty {
+        grid-column: 1 / -1; // span the whole grid
+        margin: 0;
+        padding: var(--space-large) 0;
+        color: var(--color-light-grey);
+    }
+
+    // -------- Past events (full width) --------
+    .events-heading--past {
+        width: 100%;
+    }
+
+    // Past cards: single column on mobile, 3-up from md
+    .events-cards--past {
+        display: grid;
+        gap: var(--space-large);
+        grid-template-columns: 1fr;
+
+        @include media-screen(md-up) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    // "View all past events" link below the three past cards.
+    .events-past-more {
+        margin-top: var(--space-large);
+        text-align: center;
+
+        &__link {
+            font-weight: var(--fw-bold);
+            text-decoration: underline;
+            transition: color 0.15s ease;
+
+            &:hover,
+            &:focus-visible {
+                color: var(--color-primary);
+            }
+        }
+    }
+
+    // -------- CTA cards: submit event + newsletter (50/50) --------
+    .events-cta {
+        display: grid;
+        gap: var(--space-large);
+        grid-template-columns: 1fr; // mobile: stacked
+
+        @include media-screen(md-up) {
+            grid-template-columns: 1fr 1fr; // 50 / 50
+        }
+
+        // Base placeholder look — skip cards that bring their own style
+        // (e.g. the submit card uses the shared .event-signup-cta panel).
+        .events-cta__card:not(.event-signup-cta) {
+            min-height: 200px;
+            background: var(--color-lightest-grey);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-reg);
+        }
+
+        // Centre content and give equal top/bottom spacing. Scoped here so the
+        // shared .event-signup-cta stays left-aligned in the sidebar.
+        .events-cta__card {
+            align-items: baseline;
+            justify-content: center;
+            text-align: left;
+            padding-top: var(--space-large);
+            padding-bottom: var(--space-large);
+
+            // Buttons/links inside default to flex-start elsewhere — centre them.
+            .event-signup-cta__cta,
+            a {
+                align-self: baseline;
+            }
+        }
+    }
+
+    // -------- Event card (shared partial: image on top, body below) --------
+    // Event card: square 1:1 (card height halved from the previous 2:1). Top
+    // 50% image, bottom 50% text. Two equal grid rows guarantee the split.
+    // Image is sized by ratio; the body is exactly as tall as its content.
+    // The card's height = image + text, so no card-level aspect-ratio or
+    // fixed height is needed. Grid rows equalise cards within a row.
+    .event-card {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; // keeps the image corners inside the rounded card
+        background: var(--color-lightest-grey);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius-reg);
+
+        // Fixed image height for every card. flex-shrink: 0 stops the flex
+        // column from stretching the image when a neighbouring card is taller,
+        // so every card's image is identical regardless of text length.
+        &__image {
+            position: relative; // anchor for corner badges
+            flex: 0 0 auto;
+            height: 180px;
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover; // crop to fill the fixed box, no distortion
+            }
+        }
+
+        &__body {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-small);
+            padding: var(--space-regular);
+        }
+
+        &__heading {
+            margin: 0;
+        }
+
+        // Actions sit directly after the text (all content aligned top)
+        &__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-small);
+            align-items: center;
+        }
+
+        // CTA and read-more: capitalise the first letter of each word.
+        &__cta,
+        &__read-more {
+            font-weight: var(--fw-bold);
+            font-size: var(--fs-body-small);
+            text-transform: capitalize;
+        }
+
+        // CTA button — brand red @ 75%, solid red on hover (matches the
+        // featured + signup CTAs for one consistent button system).
+        &__cta {
+            padding: var(--padding-xs) var(--padding-sm);
+            margin-right: 1rem; // extra space before Read More
+            background: rgba(255, 0, 0, 0.75);
+            color: var(--color-white);
+            border-radius: var(--border-radius-reg);
+            transition: background 0.15s ease;
+
+            &:hover,
+            &:focus-visible {
+                background: var(--color-primary);
+            }
+        }
+
+        // Read-more is a plain underlined link.
+        &__read-more {
+            text-decoration: underline;
+            transition: color 0.15s ease;
+
+            &:hover,
+            &:focus-visible {
+                color: rgba(255, 0, 0, 0.75); // brand red @ 75%
+            }
+        }
+    }
+}
+
+.go1957998827.go1957998827.go1957998827 {
+    background-color: black !important;
+}

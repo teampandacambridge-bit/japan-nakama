@@ -17,6 +17,30 @@
       "type": "string",
       "default": ""
     },
+    "isHeroMain": {
+      "type": "boolean",
+      "default": false
+    },
+    "isSidebarFeatured": {
+      "type": "boolean",
+      "default": false
+    },
+    "isFree": {
+      "type": "boolean",
+      "default": false
+    },
+    "isSponsored": {
+      "type": "boolean",
+      "default": false
+    },
+    "eventStatus": {
+      "type": "string",
+      "default": ""
+    },
+    "eventVenue": {
+      "type": "string",
+      "default": ""
+    },
     "address": {
       "type": "string",
       "default": ""

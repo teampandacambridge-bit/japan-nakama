@@ -404,6 +404,30 @@ return array(
 				'type' => 'string',
 				'default' => ''
 			),
+			'isHeroMain' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
+			'isSidebarFeatured' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
+			'isFree' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
+			'isSponsored' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
+			'eventStatus' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'eventVenue' => array(
+				'type' => 'string',
+				'default' => ''
+			),
 			'address' => array(
 				'type' => 'string',
 				'default' => ''

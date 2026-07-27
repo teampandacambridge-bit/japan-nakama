@@ -7,6 +7,8 @@ import {
 import {
     Button,
     TextControl,
+    CheckboxControl,
+    SelectControl,
     PanelBody,
     PanelRow
 } from '@wordpress/components';
@@ -16,6 +18,12 @@ export default function Edit({ attributes, setAttributes }) {
     const {
         heading = '',
         cost = '',
+        isHeroMain = false,
+        isSidebarFeatured = false,
+        isFree = false,
+        isSponsored = false,
+        eventStatus = '',
+        eventVenue = '',
         address = '',
         startDate = {},
         endDate = {},
@@ -192,6 +200,70 @@ export default function Edit({ attributes, setAttributes }) {
                             type="time"
                             value={endDate?.time || ''}
                             onChange={(value) => setAttributes({ endDate: { ...endDate, time: value } })}
+                        />
+                    </PanelRow>
+                </PanelBody>
+
+                {/* Post Placement */}
+                <PanelBody title={__('Post Placement', 'event-overview')} initialOpen={false}>
+                    <PanelRow>
+                        <CheckboxControl
+                            label={__('Feature as main hero', 'event-overview')}
+                            help={__('Use this event as the large main card in the events hero. Only one event should be set.', 'event-overview')}
+                            checked={isHeroMain}
+                            onChange={(value) => setAttributes({ isHeroMain: value })}
+                        />
+                    </PanelRow>
+                    <PanelRow>
+                        <CheckboxControl
+                            label={__('Feature in sidebar', 'event-overview')}
+                            help={__('Show this event as the featured card in the events sidebar. Only one event should be set.', 'event-overview')}
+                            checked={isSidebarFeatured}
+                            onChange={(value) => setAttributes({ isSidebarFeatured: value })}
+                        />
+                    </PanelRow>
+                </PanelBody>
+
+                {/* Event Tags */}
+                <PanelBody title={__('Event Tags', 'event-overview')} initialOpen={false}>
+                    <PanelRow>
+                        <SelectControl
+                            label={__('Event Status', 'event-overview')}
+                            help={__('Leave as Automatic to set the status from the start/end dates. Choose a value only to override it.', 'event-overview')}
+                            value={eventStatus}
+                            options={[
+                                { label: __('Automatic (from dates)', 'event-overview'), value: '' },
+                                { label: __('Last Chance', 'event-overview'), value: 'last-chance' },
+                                { label: __('On Now', 'event-overview'), value: 'on-now' },
+                                { label: __('Upcoming', 'event-overview'), value: 'upcoming' },
+                                { label: __('Later', 'event-overview'), value: 'later' },
+                                { label: __('Past', 'event-overview'), value: 'past' }
+                            ]}
+                            onChange={(value) => setAttributes({ eventStatus: value })}
+                        />
+                    </PanelRow>
+                    <PanelRow>
+                        <CheckboxControl
+                            label={__('Free event', 'event-overview')}
+                            help={__('Shows a “Free” tag on the event card.', 'event-overview')}
+                            checked={isFree}
+                            onChange={(value) => setAttributes({ isFree: value })}
+                        />
+                    </PanelRow>
+                    <PanelRow>
+                        <CheckboxControl
+                            label={__('Sponsored', 'event-overview')}
+                            help={__('Shows a “Sponsored” tag on the event card.', 'event-overview')}
+                            checked={isSponsored}
+                            onChange={(value) => setAttributes({ isSponsored: value })}
+                        />
+                    </PanelRow>
+                    <PanelRow>
+                        <TextControl
+                            label={__('Event Venue', 'event-overview')}
+                            help={__('Shows a venue tag on the event card.', 'event-overview')}
+                            value={eventVenue}
+                            onChange={(value) => setAttributes({ eventVenue: value })}
                         />
                     </PanelRow>
                 </PanelBody>

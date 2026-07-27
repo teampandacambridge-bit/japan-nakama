@@ -1,20 +1,22 @@
-<section class="pre-footer">
-    <h2>Stay in the Loop</h2>
-    <p>Sign up to our newsletter to receive updates </p>
+<?php // The events archive has its own newsletter CTA, so hide this pre-footer there. ?>
+<?php if (! is_category('events')) : ?>
+    <section class="pre-footer">
+        <h2>Stay in the Loop</h2>
+        <p>Sign up to our newsletter to receive updates </p>
 
-    <div class="c">
-        <div class="klaviyo-form-RCvnrW form-input">
-            <!-- <div class="klaviyo-form-RCvnrW"></div> -->
+        <div class="c">
+            <div class="klaviyo-form-RCvnrW form-input">
+            </div>
         </div>
-    </div>
-    <p class="terms">
-        By subscribing, you agree to our
-        <a href="https://www.japannakama.co.uk/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-        and
-        <a href="https://www.japannakama.co.uk/terms-and-conditions/" target="_blank" rel="noopener noreferrer">Terms of Service</a>
-    </p>
+        <p class="terms">
+            By subscribing, you agree to our
+            <a href="https://www.japannakama.co.uk/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            and
+            <a href="https://www.japannakama.co.uk/terms-and-conditions/" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+        </p>
 
-</section>
+    </section>
+<?php endif; ?>
 <footer class="main-footer">
     <div class="links">
         <div class="">

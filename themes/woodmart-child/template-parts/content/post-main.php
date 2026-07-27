@@ -62,7 +62,7 @@
                     'title'       => get_the_title(),
                     'description' => get_the_excerpt(),
                     'date'        => get_the_date('Y-m-d'),
-                    'image'       => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+                    'image_id'    => get_post_thumbnail_id(get_the_ID()),
                 );
             }
             wp_reset_postdata();
@@ -79,12 +79,24 @@
                     <a href="<?= esc_url($article['href']) ?>" class="article-card">
 
                         <div class="article-card__image-wrap">
-                            <?php if ($article['image']) : ?>
-                                <img
-                                    src="<?= esc_url($article['image']) ?>"
-                                    alt="<?= esc_attr($article['title']) ?>"
-                                    class="article-card__image"
-                                    loading="lazy" />
+                            <?php if ($article['image_id']) : ?>
+                                <?php
+                                // wp_get_attachment_image() outputs src + srcset + sizes
+                                // so the browser picks the sharpest size for the card
+                                // width / device pixel ratio.
+                                echo wp_get_attachment_image(
+                                    $article['image_id'],
+                                    'large',
+                                    false,
+                                    array(
+                                        'class'   => 'article-card__image',
+                                        'alt'     => $article['title'],
+                                        'loading' => 'lazy',
+                                        // Full width on mobile, ~half the content column on desktop.
+                                        'sizes'   => '(min-width: 768px) 400px, 100vw',
+                                    )
+                                );
+                                ?>
                             <?php endif; ?>
                         </div>
 

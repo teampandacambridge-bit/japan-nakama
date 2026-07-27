@@ -16,6 +16,13 @@ $url           = $attributes['url'] ?? get_permalink();
 if (! is_array($items))   $items = [];
 if (! is_array($bullets)) $bullets = [];
 
+// Has the event ended? True when its end date is before today. Falls back to
+// the start date for single-day events. Used to hide the booking CTA.
+$event_end_date = ! empty($endDate['date']) ? $endDate['date'] : ($startDate['date'] ?? '');
+$event_has_ended = $event_end_date
+	? strtotime('today', strtotime($event_end_date)) < strtotime('today')
+	: false;
+
 // ---- Output the markup ----
 ?>
 
@@ -90,7 +97,7 @@ if (! is_array($bullets)) $bullets = [];
 			</ul>
 		<?php endif; ?>
 
-		<?php if (! empty($cta['text']) && ! empty($cta['url'])) : ?>
+		<?php if (! empty($cta['text']) && ! empty($cta['url']) && ! $event_has_ended) : ?>
 			<dd class="no-bt-border">
 				<a class="overview-cta-button"
 					href="<?php echo esc_url($cta['url']); ?>"
@@ -150,11 +157,12 @@ $schema = [
 		return is_array($b) ? ($b['text'] ?? '') : $b;
 	}, $bullets)),
 	"image" => array_map('esc_url', $images),
-	"potentialAction" => [
+	// Only advertise a booking action while the event is still upcoming/on.
+	"potentialAction" => (! $event_has_ended && ! empty($cta['url'])) ? [
 		"@type"  => "Action",
 		"name"   => $cta['text'],
 		"target" => $cta['url']
-	]
+	] : null,
 ];
 
 // Remove nulls (optional but cleaner)

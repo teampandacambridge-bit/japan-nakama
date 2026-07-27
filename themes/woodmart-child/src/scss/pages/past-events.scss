@@ -1,0 +1,109 @@
+// ==========================================================================
+// Past Events archive (page-past-events.php)
+// A compact, paginated list of ended events — lighter than the event cards.
+// ==========================================================================
+#past-events {
+    padding: 0 var(--space-regular) var(--space-large);
+
+    .past-events__list {
+        counter-reset: past-events;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .past-events__item {
+        border-bottom: 1px solid var(--color-border);
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .past-events__link {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        padding: var(--space-regular) 0;
+        text-decoration: none;
+        transition: color 0.15s ease;
+
+        &:hover .past-events__heading,
+        &:focus-visible .past-events__heading {
+            color: var(--color-primary);
+        }
+
+        // Two-column on wider screens: title left, date right.
+        @include media-screen(md-up) {
+            flex-direction: row;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: var(--space-large);
+        }
+    }
+
+    .past-events__heading {
+        margin: 0;
+        font-size: var(--fs-heading-small);
+        line-height: var(--lh-small);
+        transition: color 0.15s ease;
+    }
+
+    .past-events__date {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        flex: 0 0 auto;
+        font-size: 0.8rem;
+        color: var(--color-light-grey);
+
+        .card-meta__icon {
+            flex: 0 0 auto;
+        }
+    }
+
+    // -------- Pagination --------
+    .past-events__pagination {
+        margin-top: var(--space-large);
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-x-small);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-numbers {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2.25rem;
+            padding: 0.4rem 0.6rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-reg);
+            font-size: 0.8rem;
+            font-weight: var(--fw-bold);
+            color: var(--color-secondary);
+            text-decoration: none;
+            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+            &:hover,
+            &:focus-visible {
+                border-color: var(--color-primary);
+                color: var(--color-primary);
+            }
+
+            &.current {
+                background: var(--color-primary);
+                border-color: var(--color-primary);
+                color: var(--color-white);
+            }
+        }
+    }
+
+    .past-events__empty {
+        color: var(--color-light-grey);
+    }
+}

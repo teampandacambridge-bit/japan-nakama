@@ -75,19 +75,26 @@
         }
 
         //Article Images
+        // The IMAGE carries the fixed crop height; the figure sizes to the
+        // image (+ caption if present). This keeps a consistent 3rem gap below
+        // the figure and the caption sitting flush under the image, whether or
+        // not a caption exists.
         figure.wp-block-image,
         .wp-caption:has(img) {
-            height: 250px;
             width: 100%;
-            margin-bottom: 3rem;
-            @include media-screen(lg-up) {
-                height: 450px;
-            }
+            margin-top: 0;
+            margin-bottom: 1rem;
 
             img {
-                height: 100%;
+                display: block; // no inline baseline gap under the image
+                height: 250px;
                 width: 100%;
+                margin: 0; // flush against the caption below
                 object-fit: cover;
+
+                @include media-screen(lg-up) {
+                    height: 450px;
+                }
             }
 
             figcaption,
@@ -96,12 +103,12 @@
                 background: black;
                 color: white;
                 padding: 0.25rem;
+                margin: 0; // flush to image above, no gap below
             }
+        }
 
-            figcaption {
-                margin-bottom: 0rem;
-                margin-top: 0;
-            }
+        .figure.wp-block-image {
+            background-color: var(--black);
         }
 
         //Article Lists

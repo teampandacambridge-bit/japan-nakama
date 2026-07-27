@@ -50,7 +50,7 @@ add_action('wp_enqueue_scripts', function () {
         'child-style',
         get_stylesheet_directory_uri() . '/assets/css/main.min.css',
         ['bootstrap-css', 'swiper-css'],
-        '1.0.8'
+        filemtime(get_stylesheet_directory() . '/assets/css/main.min.css')
     );
 
     wp_enqueue_script(
