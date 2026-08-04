@@ -2,8 +2,10 @@
 <div class="container-medium">
     <section id="page-title">
 
-        <h1>Japanese Events in London and the UK: What's On</h1>
-        <p>Theatre, festivals, screenings, markets and gigs. See what is on now, when and where it is, and book in a couple of taps.</p>
+        <h1>Japanese Events in London and the UK: What's On & More</h1>
+        <p>Japanese culture across the UK all year, from landmark London exhibitions to small events that slip past most listings. Curated, current, and worth going out for.</p>
+
+
     </section>
 
     <section id="cards_hero">
@@ -113,12 +115,13 @@
                     </h2>
 
                     <?php jn_render_event_meta($overview, $dates); ?>
-
+                    <!-- 
                     <?php $desc = get_the_excerpt($main_post); ?>
                     <?php if ($desc) : ?>
                         <p class="hero-main-card__desc"><?php echo esc_html($desc); ?></p>
                     <?php endif; ?>
 
+                     -->
                     <div class="hero-main-card__actions">
                         <?php if (! empty($overview['cta']['url']) && ! empty($overview['cta']['text'])) : ?>
                             <a class="hero-main-card__cta" href="<?php echo esc_url($overview['cta']['url']); ?>" target="_blank" rel="noopener">
@@ -176,9 +179,10 @@
                             </h3>
 
                             <?php
-                            // Single hero cards show date + cost only — no address.
+                            // Single hero cards show DATE only — no address or cost.
                             $single_meta = $single_overview;
                             $single_meta['address'] = '';
+                            $single_meta['cost']    = '';
                             jn_render_event_meta($single_meta, $single_dates);
                             ?>
                         </div>
@@ -288,7 +292,7 @@
                             <?php jn_render_event_meta($featured_overview, $featured_dates); ?>
 
                             <a class="sidebar-featured__cta" href="<?php echo esc_url($featured_link); ?>">
-                                <?php esc_html_e('View Event', 'woodmart'); ?>
+                                <?php esc_html_e('View event', 'woodmart'); ?>
                             </a>
                         </div>
                     </div>
@@ -388,7 +392,7 @@
             <section class="sidebar-section sidebar-signup event-signup-cta">
                 <p class="eyebrow"><?php esc_html_e('Got an event?', 'woodmart'); ?></p>
                 <h3 class="event-signup-cta__heading"><?php esc_html_e('List it on the What\'s On hub', 'woodmart'); ?></h3>
-                <p class="event-signup-cta__desc"><?php esc_html_e('Screening, market, gig or exhibition? Tell us and it could feature here and in the newsletter.', 'woodmart'); ?></p>
+                <p class="event-signup-cta__desc"><?php esc_html_e('Screening, market, gig or exhibition?', 'woodmart'); ?><br><?php esc_html_e('Tell us and it could feature here and in the newsletter.', 'woodmart'); ?></p>
                 <a class="event-signup-cta__cta" href="#">
                     <?php esc_html_e('Submit an event', 'woodmart'); ?> &rsaquo;
                 </a>
@@ -454,7 +458,7 @@
     ?>
         <div class="events-past-more">
             <a class="events-past-more__link" href="<?php echo esc_url(get_permalink($past_pages[0]->ID)); ?>">
-                <?php esc_html_e('View all past events', 'woodmart'); ?> &rarr;
+                <?php esc_html_e('View all past events', 'woodmart'); ?>
             </a>
         </div>
     <?php endif; ?>
@@ -465,7 +469,7 @@
         <div class="events-cta__card events-cta__card--submit event-signup-cta">
             <p class="eyebrow"><?php esc_html_e('Got an event?', 'woodmart'); ?></p>
             <h3 class="event-signup-cta__heading"><?php esc_html_e('List it on the What\'s On hub', 'woodmart'); ?></h3>
-            <p class="event-signup-cta__desc"><?php esc_html_e('Screening, market, gig or exhibition? Tell us and it could feature here and in the newsletter.', 'woodmart'); ?></p>
+            <p class="event-signup-cta__desc"><?php esc_html_e('Screening, market, gig or exhibition?', 'woodmart'); ?><br><?php esc_html_e('Tell us and it could feature here and in the newsletter.', 'woodmart'); ?></p>
             <a class="event-signup-cta__cta" href="#">
                 <?php esc_html_e('Submit an event', 'woodmart'); ?> &rsaquo;
             </a>

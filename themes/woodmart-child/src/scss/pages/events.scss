@@ -53,7 +53,7 @@ p.card-meta {
     font-size: 0.8rem; // small at every breakpoint (no desktop bump)
     line-height: 1.3;
     font-weight: var(--fw-regular);
-    color: var(--color-light-grey);
+    color: var(--color-dark-grey); // darker so it pops on light card grounds
 
     &__icon {
         flex: 0 0 auto;
@@ -264,6 +264,24 @@ p.eyebrow {
             color: var(--color-white);
         }
 
+        // Mobile: hide post meta (date/address/price) and the description —
+        // keep only image, tags, title and CTAs. Shown again from md up.
+        .card-meta-list {
+            display: none;
+
+            @include media-screen(md-up) {
+                display: flex;
+            }
+        }
+
+        &__desc {
+            display: none;
+
+            @include media-screen(md-up) {
+                display: block;
+            }
+        }
+
         &__heading {
             margin: 0;
             margin-bottom: var(--space-small);
@@ -299,7 +317,7 @@ p.eyebrow {
         }
 
         &__cta {
-            padding: var(--padding-xs) var(--padding-sm);
+            padding: var(--padding-xxs) var(--padding-sm);
             background: var(--color-primary);
             color: var(--color-white);
             border-radius: var(--border-radius-reg);
@@ -363,9 +381,16 @@ p.eyebrow {
 
             &__dates {
                 margin: 0;
-                color: var(--color-light-grey);
+                color: var(--color-dark-grey);
                 font-weight: var(--fw-regular);
                 font-size: var(--fs-body-small);
+            }
+
+            // Fallback: hide address + cost meta so single cards show DATE only,
+            // even if the PHP that blanks them hasn't deployed yet.
+            .card-meta--address,
+            .card-meta--cost {
+                display: none;
             }
         }
     }
@@ -378,23 +403,27 @@ p.eyebrow {
     background-color: black;
 }
 
-// Full-width advert slot — holds a nakama_advert('horizontal') ad, which
-// brings its own markup. We only constrain layout: centred, capped width.
+// Full-width advert slot — holds a nakama_advert horizontal ad. Both the top
+// and bottom slots use this, with a FIXED height so they always match each
+// other regardless of which creative each slot is assigned.
 .events-advert__slot {
     display: flex;
+    align-items: center;
     justify-content: center;
-    max-width: 750px;
-    max-height: 250px;
-    height: auto;
+    width: 100%;
+    // max-width: 750px;
+    height: 250px; // fixed — top and bottom slots are identical
+    overflow: hidden;
 
     margin: var(--space-large) auto;
 
-    // The ad content fills the slot without overflowing.
+    // The ad content fits within the fixed slot without overflowing it.
     img,
     picture,
     video,
     iframe {
         max-width: 100%;
+        max-height: 100%;
         height: auto;
     }
 
@@ -554,11 +583,13 @@ p.eyebrow {
             &__cta {
                 display: block;
                 width: 100%;
-                padding: var(--padding-xs) var(--padding-sm);
+                padding: var(--padding-xxs) var(--padding-sm);
                 background: rgba(255, 0, 0, 0.75);
                 color: var(--color-white);
                 border-radius: var(--border-radius-reg);
+                font-size: var(--fs-body-small); // consistent button font
                 font-weight: var(--fw-bold);
+                letter-spacing: normal;
                 text-align: center;
                 margin-top: var(--space-regular);
                 transition: background 0.15s ease;
@@ -646,7 +677,7 @@ p.eyebrow {
             align-items: center;
             gap: 0.35rem;
             font-size: var(--fs-body-small);
-            color: var(--color-light-grey);
+            color: var(--color-dark-grey);
             font-weight: var(--fw-regular);
 
             .card-meta__icon {
@@ -674,7 +705,6 @@ p.eyebrow {
         .sidebar-ad__slot {
             display: flex;
             justify-content: center;
-            width: 280px;
             margin: 0 auto;
 
             @include media-screen(md-up) {
@@ -726,11 +756,13 @@ p.eyebrow {
         &__cta {
             align-self: flex-start;
             margin-top: var(--space-small);
-            padding: var(--padding-xs) var(--padding-md);
+            padding: var(--padding-xxs) var(--padding-md);
             background: rgba(255, 0, 0, 0.75);
             color: var(--color-white);
             border-radius: var(--border-radius-reg);
+            font-size: var(--fs-body-small); // consistent button font
             font-weight: var(--fw-bold);
+            letter-spacing: normal;
             transition: background 0.15s ease;
 
             &:hover,
@@ -829,8 +861,8 @@ p.eyebrow {
     }
 
     // "View all past events" link below the three past cards.
+    // No margin — the #events-archive grid gap spaces it evenly above and below.
     .events-past-more {
-        margin-top: var(--space-large);
         text-align: center;
 
         &__link {
@@ -848,7 +880,7 @@ p.eyebrow {
     // -------- CTA cards: submit event + newsletter (50/50) --------
     .events-cta {
         display: grid;
-        gap: var(--space-large);
+        gap: 1rem;
         grid-template-columns: 1fr; // mobile: stacked
 
         @include media-screen(md-up) {
@@ -935,13 +967,14 @@ p.eyebrow {
         &__read-more {
             font-weight: var(--fw-bold);
             font-size: var(--fs-body-small);
-            text-transform: capitalize;
+            letter-spacing: normal;
+            // text-transform: capitalize;
         }
 
         // CTA button — brand red @ 75%, solid red on hover (matches the
         // featured + signup CTAs for one consistent button system).
         &__cta {
-            padding: var(--padding-xs) var(--padding-sm);
+            padding: var(--padding-xxs) var(--padding-sm);
             margin-right: 1rem; // extra space before Read More
             background: rgba(255, 0, 0, 0.75);
             color: var(--color-white);

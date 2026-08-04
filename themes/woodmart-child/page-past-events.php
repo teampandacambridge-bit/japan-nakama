@@ -36,16 +36,6 @@ $past_query = new WP_Query([
 ]);
 ?>
 
-<div class="container-medium">
-    <section id="page-title">
-        <p class="eyebrow"><?php esc_html_e('Archive', 'woodmart'); ?></p>
-        <h1><?php echo esc_html(get_the_title()); ?></h1>
-        <?php if (get_the_content()) : ?>
-            <div class="past-events__intro"><?php the_content(); ?></div>
-        <?php endif; ?>
-    </section>
-</div>
-
 <main id="past-events" class="container-medium">
     <?php if ($past_query->have_posts()) : ?>
         <ol class="past-events__list">

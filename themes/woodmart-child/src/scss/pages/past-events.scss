@@ -69,36 +69,36 @@
         ul {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center; // centre the pagination
             gap: var(--space-x-small);
             list-style: none;
             margin: 0;
             padding: 0;
         }
 
+        // No outer box — plain black numbers, evenly sized.
         .page-numbers {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 2.25rem;
-            padding: 0.4rem 0.6rem;
-            border: 1px solid var(--color-border);
-            border-radius: var(--border-radius-reg);
+            min-width: 2rem;
+            height: 2rem;
+            padding: 0 0.4rem;
             font-size: 0.8rem;
             font-weight: var(--fw-bold);
-            color: var(--color-secondary);
+            color: var(--color-black);
             text-decoration: none;
-            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 
             &:hover,
             &:focus-visible {
-                border-color: var(--color-primary);
                 color: var(--color-primary);
             }
 
+            // Current page — black, underlined (no box).
             &.current {
-                background: var(--color-primary);
-                border-color: var(--color-primary);
-                color: var(--color-white);
+                color: var(--color-black);
+                text-decoration: underline;
+                text-underline-offset: 4px;
             }
         }
     }
