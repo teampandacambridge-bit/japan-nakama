@@ -2,54 +2,6 @@
 <html <?php language_attributes(); ?>>
 
 <head>
-
-    <!-- <script type="module">
-        import {
-            onCLS
-        } from 'https://unpkg.com/web-vitals@4/dist/web-vitals.attribution.js';
-
-        onCLS((metric) => {
-
-            const attribution = metric.attribution;
-
-            console.log('CLS:', metric.value);
-            console.log('Largest shift target:', attribution?.largestShiftTarget);
-
-            if (!attribution?.largestShiftTarget) return;
-
-            const el = document.querySelector(
-                attribution.largestShiftTarget
-            );
-
-            if (!el) return;
-
-            // Highlight shifting element
-            el.style.outline = '4px solid red';
-            el.style.outlineOffset = '4px';
-            el.style.transition = 'outline 0.3s ease';
-
-            // Floating debug label
-            const badge = document.createElement('div');
-            badge.textContent = `CLS Shift`;
-            badge.style.position = 'absolute';
-            badge.style.zIndex = 999999;
-            badge.style.background = 'red';
-            badge.style.color = 'white';
-            badge.style.fontSize = '12px';
-            badge.style.padding = '4px 6px';
-            badge.style.fontFamily = 'monospace';
-
-            const rect = el.getBoundingClientRect();
-            badge.style.top = window.scrollY + rect.top + 'px';
-            badge.style.left = window.scrollX + rect.left + 'px';
-
-            document.body.appendChild(badge);
-
-        }, {
-            reportAllChanges: true
-        });
-    </script> -->
-
     <?php if (wp_get_environment_type() === 'production') : ?>
         <!-- Google Tag Manager -->
         <script>

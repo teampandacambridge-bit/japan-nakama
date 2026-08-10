@@ -60,6 +60,9 @@ footer.main-footer {
 
     ul {
         padding-left: 0 !important;
+        li {
+            list-style: none;
+        }
     }
 
     ul.footer-cat-links {
@@ -70,6 +73,7 @@ footer.main-footer {
         list-style: none;
         li {
             flex: 0 0 50%;
+            list-style: none;
             a {
                 text-transform: capitalize;
             }
@@ -100,6 +104,7 @@ footer.main-footer {
 
             li {
                 margin: 0 1rem;
+                list-style: none;
             }
         }
     }

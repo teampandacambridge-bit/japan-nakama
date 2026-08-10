@@ -1284,7 +1284,7 @@ div#nav-container .mast-head {
   display: flex;
   justify-content: center;
   background-color: white;
-  width: 100vw;
+  width: 100%;
   height: 100%;
 }
 @media only screen and (min-width: 768px) {
@@ -3343,6 +3343,9 @@ footer.main-footer h2 a:hover {
 footer.main-footer ul {
   padding-left: 0 !important;
 }
+footer.main-footer ul li {
+  list-style: none;
+}
 footer.main-footer ul.footer-cat-links {
   display: flex;
   flex-wrap: wrap;
@@ -3352,6 +3355,7 @@ footer.main-footer ul.footer-cat-links {
 }
 footer.main-footer ul.footer-cat-links li {
   flex: 0 0 50%;
+  list-style: none;
 }
 footer.main-footer ul.footer-cat-links li a {
   text-transform: capitalize;
@@ -3377,6 +3381,7 @@ footer.main-footer .boiler ul {
 }
 footer.main-footer .boiler ul li {
   margin: 0 1rem;
+  list-style: none;
 }
 
 .wt-md {
@@ -4412,6 +4417,15 @@ body.author main a.post-card .text {
   align-items: center;
 }
 
+.category-events {
+  padding: 0 var(--space-small);
+}
+@media only screen and (min-width: 768px) {
+  .category-events {
+    padding: var(--space-regular);
+  }
+}
+
 .card-tags {
   display: flex;
   flex-wrap: wrap;
@@ -4507,7 +4521,12 @@ p.eyebrow {
 
 #page-title {
   text-align: left;
-  padding: var(--space-regular);
+  padding: var(--space-regular) 0;
+}
+@media only screen and (min-width: 768px) {
+  #page-title {
+    padding: var(--space-regular);
+  }
 }
 #page-title h1 {
   margin-bottom: var(--space-regular);
@@ -4531,12 +4550,13 @@ p.eyebrow {
   display: grid;
   gap: var(--space-large);
   grid-template-columns: 1fr;
-  padding: var(--space-regular);
+  padding: var(--space-regular) 0;
 }
 @media only screen and (min-width: 768px) {
   #cards_hero {
     grid-template-columns: 2fr 1fr;
     align-items: stretch;
+    padding: var(--space-regular);
   }
 }
 #cards_hero .hero-main-card {
@@ -4572,7 +4592,7 @@ p.eyebrow {
   display: flex;
   flex-direction: column;
   gap: var(--space-small);
-  padding: var(--space-large);
+  padding: var(--space-small);
   height: 100%;
   justify-content: flex-end;
   pointer-events: none;
@@ -4701,15 +4721,19 @@ p.eyebrow {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: 250px;
   overflow: hidden;
   margin: var(--space-large) auto;
+}
+.events-advert__slot * {
+  max-width: 100% !important;
 }
 .events-advert__slot img,
 .events-advert__slot picture,
 .events-advert__slot video,
 .events-advert__slot iframe {
-  max-width: 100%;
   max-height: 100%;
   height: auto;
 }
@@ -4720,7 +4744,12 @@ p.eyebrow {
 #events-archive {
   display: grid;
   gap: var(--space-large);
-  padding: var(--space-regular);
+  padding: var(--space-regular) 0;
+}
+@media only screen and (min-width: 768px) {
+  #events-archive {
+    padding: var(--space-regular);
+  }
 }
 #events-archive .events-top {
   display: grid;
@@ -4757,13 +4786,11 @@ p.eyebrow {
     align-content: start;
   }
 }
-#events-archive .events-sidebar {
-  display: grid;
-  gap: var(--space-large);
-  align-content: start;
-}
 @media only screen and (min-width: 768px) {
   #events-archive .events-sidebar {
+    display: grid;
+    gap: var(--space-large);
+    align-content: start;
     position: sticky;
     top: var(--space-large);
   }
@@ -4911,18 +4938,28 @@ p.eyebrow {
   padding: 0;
   border: none;
   width: 100%;
-  background-color: black;
   max-width: 100%;
+  background-color: black;
+}
+@media only screen and (min-width: 768px) {
+  #events-archive .events-sidebar .sidebar-ad {
+    display: block;
+  }
+}
+#events-archive .events-sidebar .sidebar-ad .nakama-advert a {
+  display: block;
+  width: 100%;
 }
 #events-archive .events-sidebar .sidebar-ad__slot {
   display: flex;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
+  overflow: hidden;
 }
-@media only screen and (min-width: 768px) {
-  #events-archive .events-sidebar .sidebar-ad__slot {
-    width: 100%;
-  }
+#events-archive .events-sidebar .sidebar-ad__slot > * {
+  max-width: 100%;
 }
 #events-archive .events-sidebar .sidebar-ad__slot img,
 #events-archive .events-sidebar .sidebar-ad__slot picture,
@@ -5219,6 +5256,39 @@ p.eyebrow {
 }
 #past-events .past-events__empty {
   color: var(--color-light-grey);
+}
+
+.page-id-13762 {
+  min-height: 100vh;
+}
+
+.contact-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-large) var(--space-regular);
+  text-align: center;
+}
+.contact-page__title {
+  margin: 0 0 var(--space-regular);
+}
+.contact-page__intro {
+  margin: 0 auto var(--space-large);
+  font-size: var(--fs-body-regular);
+  color: var(--color-secondary);
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 22px;
+  height: 200px;
+}
+.contact-page__intro a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+.contact-page__content {
+  text-align: left;
+}
+.contact-page__content form {
+  margin: 0 auto;
 }
 
 .container-medium {

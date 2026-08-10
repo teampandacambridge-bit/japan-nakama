@@ -28,6 +28,29 @@ add_action('wp_head', function () {
 
 
 /**
+ * Cache-busting version for a theme asset, based on its CONTENT.
+ *
+ * A hash of the file changes whenever the file's contents change — so browsers
+ * always fetch a fresh copy after an update. This is more reliable than
+ * filemtime() on hosts where file modification times don't update predictably
+ * (e.g. some deploy pipelines / cached filesystems).
+ *
+ * @param string $relative_path Path relative to the theme root, e.g. 'assets/css/main.min.css'.
+ * @return string A short version string, or the theme version as a fallback.
+ */
+function jn_asset_version($relative_path)
+{
+    $file = get_stylesheet_directory() . '/' . ltrim($relative_path, '/');
+
+    if (file_exists($file)) {
+        // 8 chars of an MD5 of the file contents — changes on any edit.
+        return substr(md5_file($file), 0, 8);
+    }
+
+    return wp_get_theme()->get('Version');
+}
+
+/**
  * Enqueue CSS/JS
  */
 add_action('wp_enqueue_scripts', function () {
@@ -50,7 +73,7 @@ add_action('wp_enqueue_scripts', function () {
         'child-style',
         get_stylesheet_directory_uri() . '/assets/css/main.min.css',
         ['bootstrap-css', 'swiper-css'],
-        filemtime(get_stylesheet_directory() . '/assets/css/main.min.css')
+        jn_asset_version('assets/css/main.min.css') // auto cache-bust on change
     );
 
     wp_enqueue_script(
@@ -73,7 +96,7 @@ add_action('wp_enqueue_scripts', function () {
         'main-js',
         get_stylesheet_directory_uri() . '/assets/js/main.js',
         [],
-        filemtime(get_stylesheet_directory() . '/assets/js/main.js'),
+        jn_asset_version('assets/js/main.js'), // auto cache-bust on change
         true
     );
 }, 20);

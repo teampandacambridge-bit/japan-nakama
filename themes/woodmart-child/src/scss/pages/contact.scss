@@ -1,0 +1,43 @@
+// ==========================================================================
+// Contact Us page (template-pages/contact-us.php)
+// Centred intro + form area.
+// ==========================================================================
+
+.page-id-13762 {
+    min-height: 100vh;
+}
+.contact-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--space-large) var(--space-regular);
+    text-align: center;
+
+    &__title {
+        margin: 0 0 var(--space-regular);
+    }
+
+    &__intro {
+        margin: 0 auto var(--space-large);
+        font-size: var(--fs-body-regular);
+        color: var(--color-secondary);
+        margin-top: 1rem;
+        text-align: center;
+        font-size: 22px;
+        height: 200px;
+
+        a {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+    }
+
+    // The form (added in the page editor) centres within the column.
+    &__content {
+        text-align: left; // forms read better left-aligned
+
+        // Centre common form wrappers if the plugin outputs a block-level form.
+        form {
+            margin: 0 auto;
+        }
+    }
+}

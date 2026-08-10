@@ -26,7 +26,8 @@ div#nav-container {
         display: flex;
         justify-content: center;
         background-color: white;
-        width: 100vw;
+        width: 100%; // not 100vw — 100vw includes the scrollbar width and
+                     // overflows the page on real devices (horizontal scroll).
         height: 100%;
         @include media-screen(md-up) {
             height: 60px;
