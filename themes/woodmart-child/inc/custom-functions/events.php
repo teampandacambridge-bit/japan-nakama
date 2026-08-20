@@ -638,7 +638,7 @@ function jn_query_upcoming_events($filter, $cat_id)
     return new WP_Query([
         'post_type'      => 'post',
         'cat'            => $cat_id,
-        'posts_per_page' => -1,
+        'posts_per_page' => 20,
         'orderby'        => ['end_clause' => 'ASC'], // soonest ending first
         'meta_query'     => $meta_query,
     ]);

@@ -52,11 +52,8 @@
         ?>
         <div class="container-medium">
             <section id="page-title">
-
                 <h1>Japanese Cultural Events: Festivals, Markets, Exhibitions and More</h1>
                 <p>Japanese culture across the UK all year, from landmark London exhibitions to small events that slip past most listings. Curated, current, and worth going out for.</p>
-
-
             </section>
 
             <section id="cards_hero">
@@ -458,7 +455,6 @@
 
 
         <header class="events-heading events-heading--past">
-
             <h2>Past Events</h2>
         </header>
 

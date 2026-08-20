@@ -19,7 +19,7 @@ $paged = max(1, get_query_var('paged'), get_query_var('page'));
 $past_query = new WP_Query([
     'post_type'      => 'post',
     'cat'            => $events_cat_id,
-    'posts_per_page' => 12,
+    'posts_per_page' => 20,
     'paged'          => $paged,
     'orderby'        => ['end_clause' => 'DESC'], // most recently finished first
     'meta_query'     => [

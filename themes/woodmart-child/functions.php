@@ -9,7 +9,6 @@ require_once get_stylesheet_directory() . '/inc/custom-functions/old-funcs.php';
 require_once get_stylesheet_directory() . '/inc/custom-functions/adverts.php';
 require_once get_stylesheet_directory() . '/inc/custom-functions/trending-articles.php';
 require_once get_stylesheet_directory() . '/inc/custom-functions/nakama-settings.php';
-require_once get_stylesheet_directory() . '/inc/custom-functions/sidebar-coupons.php';
 require_once get_stylesheet_directory() . '/inc/custom-functions/custom-posts.php';
 require_once get_stylesheet_directory() . '/inc/custom-functions/breadlinks.php';
 require_once get_stylesheet_directory() . '/inc/custom-functions/events.php';
