@@ -30,6 +30,15 @@ function add_nakama_settings_menu()
         'nakama-sidebar-coupons',
         'nakama_sidebar_coupons_page'
     );
+
+    add_submenu_page(
+        'nakama-settings',
+        'Homepage Events',
+        'Homepage Events',
+        'manage_options',
+        'nakama-homepage-events',
+        'nakama_homepage_events_page'
+    );
 }
 add_action('admin_menu', 'add_nakama_settings_menu');
 
@@ -221,6 +230,116 @@ function nakama_sanitize_coupons($coupons)
 
     return $clean;
 }
+
+// === 4. Homepage Events page ===
+
+/**
+ * Defaults for the homepage events takeover copy.
+ *
+ * Used as the fallback when an option has never been saved, so the section
+ * renders its original copy on a site where nothing has been entered yet.
+ */
+function nakama_homepage_events_defaults()
+{
+    return [
+        'nakama_events_ribbon'   => 'Updated weekly with what to book and what to catch before it closes',
+        'nakama_events_heading'  => 'Japanense Events In London & Across the UK',
+        'nakama_events_subcopy'  => '',
+    ];
+}
+
+/**
+ * Get one piece of homepage events copy, falling back to its default.
+ *
+ * @param string $key Option name, e.g. 'nakama_events_heading'.
+ * @return string
+ */
+function nakama_get_homepage_events_copy($key)
+{
+    $defaults = nakama_homepage_events_defaults();
+    $value    = get_option($key, null);
+
+    // An option that has never been saved falls back to the default; one saved
+    // as an empty string is respected as a deliberate "show nothing".
+    if ($value === null || $value === false) {
+        return $defaults[$key] ?? '';
+    }
+
+    return $value;
+}
+
+function nakama_homepage_events_page()
+{
+?>
+    <div class="wrap">
+        <h1>Homepage Events</h1>
+        <p>Copy for the "What's On" events section on the homepage.</p>
+        <form method="post" action="options.php">
+            <?php
+            settings_fields('nakama_homepage_events_group');
+            do_settings_sections('nakama-homepage-events');
+            submit_button();
+            ?>
+        </form>
+    </div>
+<?php
+}
+
+add_action('admin_init', function () {
+    register_setting('nakama_homepage_events_group', 'nakama_events_ribbon', [
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    register_setting('nakama_homepage_events_group', 'nakama_events_heading', [
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    register_setting('nakama_homepage_events_group', 'nakama_events_subcopy', [
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ]);
+
+    add_settings_section('nakama_homepage_events_section', null, null, 'nakama-homepage-events');
+
+    add_settings_field(
+        'nakama_events_ribbon',
+        'Ribbon Strip Text',
+        function () {
+            printf(
+                '<input type="text" name="nakama_events_ribbon" id="nakama_events_ribbon" value="%s" class="large-text" />
+                 <p class="description">The one-line strap at the top of the section, next to the pulsing dot.</p>',
+                esc_attr(nakama_get_homepage_events_copy('nakama_events_ribbon'))
+            );
+        },
+        'nakama-homepage-events',
+        'nakama_homepage_events_section'
+    );
+
+    add_settings_field(
+        'nakama_events_heading',
+        'Main Heading (H2)',
+        function () {
+            printf(
+                '<input type="text" name="nakama_events_heading" id="nakama_events_heading" value="%s" class="large-text" />
+                 <p class="description">The main heading for the events section.</p>',
+                esc_attr(nakama_get_homepage_events_copy('nakama_events_heading'))
+            );
+        },
+        'nakama-homepage-events',
+        'nakama_homepage_events_section'
+    );
+
+    add_settings_field(
+        'nakama_events_subcopy',
+        'Sub Copy',
+        function () {
+            printf(
+                '<textarea name="nakama_events_subcopy" id="nakama_events_subcopy" rows="4" class="large-text">%s</textarea>
+                 <p class="description">The paragraph below the heading. Leave blank to hide it.</p>',
+                esc_textarea(nakama_get_homepage_events_copy('nakama_events_subcopy'))
+            );
+        },
+        'nakama-homepage-events',
+        'nakama_homepage_events_section'
+    );
+});
 
 function nakama_settings_init()
 {
