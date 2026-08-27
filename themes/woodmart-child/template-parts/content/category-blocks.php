@@ -3,7 +3,7 @@ $categories = [];
 
 if (is_front_page()) {
     // Homepage: show selected category slugs
-    $slugs = ['food', 'travel', 'lifestyle', 'events', 'anime'];
+    $slugs = ['creativity', 'travel', 'lifestyle', 'events', 'anime'];
     $slugs = array_slice($slugs, 0, 5);
 
     $categories = get_categories([
@@ -22,7 +22,7 @@ if (is_front_page()) {
     }
 } elseif (is_404()) {
     // 404 page: show a fallback or popular categories
-    $slugs = ['food', 'travel', 'lifestyle', 'events', 'anime'];
+    $slugs = ['creativity', 'travel', 'lifestyle', 'events', 'anime'];
 
     $categories = get_categories([
         'slug' => $slugs,

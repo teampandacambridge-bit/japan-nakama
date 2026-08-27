@@ -915,6 +915,245 @@ section.category-blocks-sub ul li h2 {
   width: 50%;
 }
 
+.events-takeover {
+  padding: var(--space-regular);
+}
+.events-takeover .bg-black {
+  background: var(--color-blackish);
+  color: var(--color-white);
+}
+.events-takeover p.kicker {
+  color: var(--color-primary);
+  font-weight: var(--fw-bold);
+  margin-bottom: 0;
+  width: fit-content;
+  font-size: var(--fs-heading-small);
+}
+.events-takeover h2,
+.events-takeover p {
+  color: var(--color-white);
+}
+.events-takeover .event-grid {
+  display: grid;
+  gap: var(--space-small);
+  grid-template-columns: 1fr;
+  grid-template-areas: "ribbon" "heading" "cards" "newsletter";
+}
+@media only screen and (min-width: 768px) {
+  .events-takeover .event-grid {
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: "ribbon     ribbon" "heading    cards" "newsletter cards";
+    align-content: start;
+  }
+}
+.events-takeover .event-grid .ribbon-strap {
+  grid-area: ribbon;
+}
+.events-takeover .event-grid .event-heading {
+  grid-area: heading;
+}
+.events-takeover .event-grid .newsletter-cta {
+  grid-area: newsletter;
+}
+.events-takeover .event-grid .event-cards {
+  grid-area: cards;
+}
+.events-takeover .ribbon-strap {
+  padding: var(--space-small);
+  border-bottom: 1px solid white;
+  margin-bottom: 1rem;
+}
+.events-takeover .ribbon-strap p {
+  font-size: var(--fs-heading-small);
+  font-weight: var(--fw-bold);
+  margin: 0 0 0.5rem;
+}
+.events-takeover .ribbon-strap .pulse-dot {
+  background: var(--color-primary);
+  border-radius: 50%;
+  display: inline-block;
+  height: 0.6em;
+  margin-right: 0.5em;
+  position: relative;
+  width: 0.6em;
+}
+.events-takeover .ribbon-strap .pulse-dot::after {
+  animation: pulse-dot-ring 2s ease-out infinite;
+  border: 1px solid var(--color-primary);
+  border-radius: 50%;
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+@keyframes pulse-dot-ring {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .events-takeover .ribbon-strap .pulse-dot::after {
+    animation: none;
+  }
+}
+.events-takeover .event-heading a {
+  color: var(--color-white);
+  font-weight: var(--fw-bold);
+  text-decoration: underline;
+  padding: 0.5rem;
+  margin-bottom: var(--space-regular);
+  display: inline-block;
+  width: fit-content;
+}
+.events-takeover .event-heading a:hover {
+  color: var(--color-primary);
+}
+.events-takeover .event-heading a:hover p {
+  color: var(--color-white);
+}
+.events-takeover .event-heading button.go1957998827,
+.events-takeover .event-heading a.submit-event {
+  text-decoration: none;
+  padding: var(--padding-xxs) var(--padding-md);
+  background: rgba(255, 0, 0, 0.75);
+  color: var(--color-white);
+  border-radius: var(--border-radius-reg);
+  font-size: var(--fs-body-small);
+  font-weight: var(--fw-bold);
+  letter-spacing: normal;
+  transition: background 0.15s ease;
+}
+.events-takeover .event-heading button.go1957998827:hover, .events-takeover .event-heading button.go1957998827:focus-visible,
+.events-takeover .event-heading a.submit-event:hover,
+.events-takeover .event-heading a.submit-event:focus-visible {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+@media only screen and (min-width: 768px) {
+  .events-takeover .event-heading {
+    border-bottom: 1px solid white;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .events-takeover .newsletter-cta {
+    margin-top: 1rem;
+  }
+}
+.events-takeover .newsletter-cta a {
+  color: var(--color-primary);
+}
+.events-takeover .newsletter-cta > p:last-child {
+  font-size: 16px;
+}
+@media only screen and (min-width: 768px) {
+  .events-takeover .newsletter-cta form.klaviyo-form {
+    margin-bottom: 16px !important;
+  }
+}
+.events-takeover .newsletter-cta button.go1957998827 {
+  background-color: rgba(255, 0, 0, 0.75) !important;
+}
+.events-takeover .newsletter-cta .event-signup-cta__form {
+  margin: var(--space-regular) 0;
+}
+.events-takeover .newsletter-cta .event-signup-cta__form p {
+  display: block;
+}
+.events-takeover .newsletter-cta .event-signup-cta__form > div,
+.events-takeover .newsletter-cta .event-signup-cta__form form {
+  margin: 0;
+}
+.events-takeover .event-cards {
+  display: grid;
+  gap: var(--space-small);
+  grid-template-columns: repeat(2, 1fr);
+}
+.events-takeover .event-cards .event-card:nth-child(n+5) {
+  display: none;
+}
+@media only screen and (min-width: 768px) {
+  .events-takeover .event-cards .event-card:nth-child(n+5) {
+    display: flex;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .events-takeover .event-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.events-takeover .event-cards__empty {
+  grid-column: 1/-1;
+  margin: 0;
+  padding: var(--space-large) 0;
+  color: var(--color-light-grey);
+}
+.events-takeover .event-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-lightest-grey);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-reg);
+}
+.events-takeover .event-card__image {
+  position: relative;
+  flex: 0 0 auto;
+  aspect-ratio: 4/3;
+}
+@media only screen and (min-width: 768px) {
+  .events-takeover .event-card__image {
+    aspect-ratio: auto;
+    height: 180px;
+  }
+}
+.events-takeover .event-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.events-takeover .event-card__image--placeholder {
+  background: var(--color-dark-grey);
+}
+.events-takeover .event-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+  padding: var(--space-regular);
+}
+.events-takeover .event-card__heading {
+  margin: 0;
+  font-size: var(--fs-heading-small);
+}
+@media only screen and (min-width: 768px) {
+  .events-takeover .event-card__heading {
+    margin-bottom: 0.5rem;
+  }
+}
+.events-takeover .event-card__heading a {
+  color: var(--color-blackish);
+}
+.events-takeover .event-card__heading a:hover, .events-takeover .event-card__heading a:focus-visible {
+  color: var(--color-primary);
+}
+.events-takeover .event-card .card-meta-list p.card-meta {
+  color: var(--color-blackish);
+}
+.events-takeover .event-card a.read-more {
+  text-decoration: underline;
+  color: black;
+  text-decoration: underline;
+  margin: 0;
+  padding: 0;
+  font-size: var(--fs-body-small);
+  width: fit-content;
+  display: block;
+}
+
 section#featured-post {
   margin-bottom: 1rem;
   padding: 2rem 1rem 1rem;
