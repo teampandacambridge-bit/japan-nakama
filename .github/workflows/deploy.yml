@@ -1,0 +1,55 @@
+name: Deploy to Cloudways
+
+on:
+  push:
+    branches: [stage]
+  # To enable production auto-deploy later, add `main` to the list above
+  # and remove the `if: false` guard on the deploy-production job.
+
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Which app to deploy
+        required: true
+        default: staging
+        type: choice
+        options: [staging, production]
+
+concurrency:
+  # Never let two deploys to the same app overlap.
+  group: cloudways-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy-staging:
+    name: Staging
+    if: >-
+      github.ref == 'refs/heads/stage' &&
+      (github.event_name == 'push' || inputs.target == 'staging')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tell Cloudways to pull stage
+        uses: roelmagdaleno/cloudways-api-git-pull-action@stable
+        with:
+          email: ${{ secrets.CLOUDWAYS_EMAIL }}
+          api-key: ${{ secrets.CLOUDWAYS_API_KEY }}
+          server-id: ${{ secrets.CLOUDWAYS_SERVER_ID }}
+          app-id: ${{ secrets.CLOUDWAYS_STAGING_APP_ID }}
+          branch-name: stage
+          deploy-path: wp-content
+
+  deploy-production:
+    name: Production
+    # DISABLED. Remove this line to enable production auto-deploy.
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tell Cloudways to pull main
+        uses: roelmagdaleno/cloudways-api-git-pull-action@stable
+        with:
+          email: ${{ secrets.CLOUDWAYS_EMAIL }}
+          api-key: ${{ secrets.CLOUDWAYS_API_KEY }}
+          server-id: ${{ secrets.CLOUDWAYS_SERVER_ID }}
+          app-id: ${{ secrets.CLOUDWAYS_PRODUCTION_APP_ID }}
+          branch-name: main
+          deploy-path: wp-content

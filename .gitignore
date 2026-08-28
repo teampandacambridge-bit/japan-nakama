@@ -68,5 +68,3 @@ mu-plugins/local-production-uploads.php
 # Stray backup copy of the active theme
 themes/live-backup/
 
-# Old misnamed workflow dir (GitHub only reads .github/)
-github/
