@@ -1,2 +1,0 @@
-<?php
-//set by Perfmatters
