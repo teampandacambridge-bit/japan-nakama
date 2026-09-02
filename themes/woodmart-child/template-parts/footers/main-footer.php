@@ -51,7 +51,7 @@
 
                 <li>
                     <p> Get in Touch :
-                        <a href=""> info@japannakama.com</a>
+                        <a href="mailto:info@japannakama.co.uk">info@japannakama.co.uk</a>
                     </p>
                 </li>
                 <li>
