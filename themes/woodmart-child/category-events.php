@@ -52,7 +52,7 @@
         ?>
         <div class="container-medium">
             <section id="page-title">
-                <h1>Japanese Cultural Events: Festivals, Markets, Exhibitions and More</h1>
+                <h1>Japanese Cultural Events: <br> Festivals, Markets, Exhibitions and More</h1>
                 <p>Japanese culture across the UK all year, from landmark London exhibitions to small events that slip past most listings. Curated, current, and worth going out for.</p>
             </section>
 
@@ -267,7 +267,7 @@
                 </header>
 
                 <div class="events-desc">
-                    <p>Every event currently listed, across exhibitions, markets, gigs and theatre. Filter by free or paid, or browse the lot.</p>
+                    <p>Every event currently listed, across exhibitions, markets, gigs and theatre. <br> Filter by free or paid, or browse the lot.</p>
                 </div>
 
                 <div class="events-filter" role="group" aria-label="<?php esc_attr_e('Filter events', 'woodmart'); ?>">

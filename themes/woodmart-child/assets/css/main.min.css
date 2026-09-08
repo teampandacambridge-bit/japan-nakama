@@ -4958,6 +4958,10 @@ p.eyebrow {
   height: 100%;
   object-fit: cover;
 }
+#cards_hero .hero-single-cards .hero-single-card__image .card-badges--left {
+  flex-direction: column;
+  align-items: flex-start;
+}
 #cards_hero .hero-single-cards .hero-single-card__body {
   display: flex;
   flex-direction: column;
