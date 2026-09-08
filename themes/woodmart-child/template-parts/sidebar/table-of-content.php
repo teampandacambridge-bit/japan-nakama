@@ -1,28 +1,31 @@
- <aside class="sidebar-one dev-border padding-regular">
-     <button
-         class="sidenav-toggle"
-         type="button"
-         aria-expanded="false"
-         aria-controls="article-sidenav">
-         Article Overview
-     </button>
+<?php
 
+/**
+ * Sidebar table of contents.
+ *
+ * Builds its links from the current post's H2/H3 headings, so it works for
+ * any article/page it's included in (not just template-pages/location.php).
+ * Lives outside the_content() in the sidebar, so it can't be the
+ * japannakama/table-of-contents block — instead it reuses that block's
+ * heading-extraction logic server-side. See
+ * inc/custom-functions/table-of-contents.php.
+ */
 
-     <nav class="sidenav" id="article-sidenav">
-         <h2>Overview</h2>
-         <ul>
-             <li><a href="#p1">History </a></li>
-             <li><a href="#p2">City Overview</a></li>
-             <li><a href="#p3">Getting To Osaka </a></li>
-             <li><a href="#p4">Getting Around</a></li>
-             <li><a href="#p5">Districts</a></li>
-             <li><a href="#p6">Things to Do</a></li>
-             <li><a href="#p7">Food and Drink</a></li>
-             <li><a href="#p8">Shopping </a></li>
-             <li><a href="#p9">Where To Stay</a></li>
-             <li><a href="#p10">Best Time to Visit</a></li>
-             <li><a href="#p11">Festivals & Events</a></li>
-             <li><a href="#p12"> Itinerary &Tips</a></li>
-         </ul>
-     </nav>
- </aside>
+$headings = is_singular() ? jn_get_toc_headings_from_content(get_the_content()) : [];
+
+if (empty($headings)) {
+    return;
+}
+
+?>
+<aside class="sidebar-one dev-border padding-regular">
+    <button
+        class="sidenav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="article-sidenav">
+        Article Overview
+    </button>
+
+    <?php jn_render_toc_nav($headings); ?>
+</aside>

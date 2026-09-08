@@ -291,31 +291,93 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        const headings = document.querySelectorAll("h2[id]");
-        const navLinks = document.querySelectorAll(".sidenav a");
+        const navLinks = Array.from(document.querySelectorAll(".sidenav a"));
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const id = entry.target.getAttribute("id");
-                    const link = document.querySelector(`.sidenav a[href="#${id}"]`);
+        if (navLinks.length === 0) {
+            return;
+        }
 
-                    if (entry.isIntersecting) {
-                        navLinks.forEach((link) => link.classList.remove("is-active"));
-                        if (link) link.classList.add("is-active");
-                    }
-                });
-            },
-            {
-                root: null,
-                rootMargin: "-40% 0px -50% 0px", // triggers when section is near middle
-                threshold: 0
+        // Only headings that actually have a matching nav link, in document order.
+        const sections = navLinks
+            .map((link) => document.getElementById(decodeURIComponent(link.getAttribute("href").slice(1))))
+            .filter(Boolean);
+
+        function setActiveLink(id) {
+            navLinks.forEach((link) => {
+                link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+            });
+        }
+
+        // Picks whichever section's heading has most recently scrolled past a
+        // fixed point near the top of the viewport, so exactly one heading is
+        // ever active. An IntersectionObserver reports each observed heading's
+        // own crossing independently, so when several headings are close
+        // together (e.g. right after landing on a same-page anchor link) it can
+        // fire for more than one in the same batch; the last entry processed
+        // would silently override an earlier, more correct one.
+        function updateActiveSection() {
+            const triggerLine = window.innerHeight * 0.35;
+            let current = sections[0];
+
+            for (const section of sections) {
+                if (section.getBoundingClientRect().top <= triggerLine) {
+                    current = section;
+                } else {
+                    break;
+                }
             }
-        );
 
-        headings.forEach((section) => observer.observe(section));
+            if (current) {
+                setActiveLink(current.id);
+            }
+        }
 
-        console.log(headings);
+        // Suppresses scroll-spy for a moment after a nav link is clicked. A
+        // short section's heading can sit above the trigger line while its
+        // whole body is still below it (e.g. a one-paragraph section right
+        // after a long one), so the scroll-spy would immediately hand the
+        // active state to the next heading down instead of the one just
+        // clicked. The browser's own anchor jump/smooth-scroll needs a beat
+        // to settle first.
+        let suppressUntil = 0;
+
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                const id = decodeURIComponent(link.getAttribute("href").slice(1));
+                setActiveLink(id);
+                suppressUntil = Date.now() + 700;
+            });
+        });
+
+        let ticking = false;
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                if (Date.now() >= suppressUntil) {
+                    updateActiveSection();
+                }
+                ticking = false;
+            });
+        }
+
+        if (sections.length > 0) {
+            const hashId = decodeURIComponent(window.location.hash.slice(1));
+            const hashSection = sections.find((section) => section.id === hashId);
+
+            if (hashSection) {
+                // Landed here via a direct link (not a click on this page), so
+                // there's no click event to hang the same suppression off of —
+                // trust the URL's own section instead of the trigger-line guess.
+                setActiveLink(hashSection.id);
+                suppressUntil = Date.now() + 700;
+            } else {
+                updateActiveSection();
+            }
+
+            window.addEventListener("scroll", onScroll, { passive: true });
+            window.addEventListener("resize", updateActiveSection);
+        }
     }
 
 

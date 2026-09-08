@@ -12,6 +12,7 @@ require_once get_stylesheet_directory() . '/inc/custom-functions/nakama-settings
 require_once get_stylesheet_directory() . '/inc/custom-functions/custom-posts.php';
 require_once get_stylesheet_directory() . '/inc/custom-functions/breadlinks.php';
 require_once get_stylesheet_directory() . '/inc/custom-functions/events.php';
+require_once get_stylesheet_directory() . '/inc/custom-functions/table-of-contents.php';
 
 // Noindex + canonical for WooCommerce filtered/parameter category URLs
 
