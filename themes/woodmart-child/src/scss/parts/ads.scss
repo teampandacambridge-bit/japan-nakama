@@ -1,7 +1,7 @@
 .ad-animated-hompage-top {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: black;
+    background-color: transparent;
 
     .ad-link {
         display: block;
@@ -77,13 +77,13 @@
             display: none;
         }
 
-        // Container holds the black background and CLS floor
+        // Container holds the CLS floor (fixed min-height prevents layout shift)
         .ad-link {
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 80px;
-            background-color: black;
+            background-color: transparent;
         }
 
         // Mobile + tablet: use landscape md image, full width

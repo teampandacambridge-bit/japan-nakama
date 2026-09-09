@@ -426,7 +426,7 @@ p.eyebrow {
 // Mobile: 200px tall. Desktop: 250px tall. Vertical gap matches the
 // --space-large rhythm used by the grids/sections around it.
 .events-advert {
-    background-color: black;
+    background-color: transparent;
 }
 
 // Full-width advert slot — holds a nakama_advert horizontal ad. Both the top
@@ -732,7 +732,7 @@ p.eyebrow {
             border: none;
             width: 100%;
             max-width: 100%;
-            background-color: black;
+            background-color: transparent;
 
             // display: none; // hidden on mobile
 
