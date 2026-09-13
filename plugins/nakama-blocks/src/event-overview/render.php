@@ -1,6 +1,8 @@
 <?php
 $heading       = $attributes['heading'] ?? '';
 $cost          = $attributes['cost'] ?? '';
+$isFree        = $attributes['isFree'] ?? false;
+$eventVenue    = $attributes['eventVenue'] ?? '';
 $address       = $attributes['address'] ?? '';
 $startDate     = $attributes['startDate'] ?? ['date' => '', 'time' => ''];
 $endDate       = $attributes['endDate'] ?? ['date' => '', 'time' => ''];
@@ -116,11 +118,32 @@ $event_has_ended = $event_end_date
 // JSON-LD Schema: Event
 // ------------------------------------------------------------
 
+// Derive the ISO currency code from the symbol present in the cost
+// string, defaulting to GBP (this site's home currency) when no
+// recognised symbol is found.
+$currency_symbols = [
+	'£' => 'GBP',
+	'$' => 'USD',
+	'€' => 'EUR',
+	'¥' => 'JPY',
+];
+$price_currency = 'GBP';
+foreach ($currency_symbols as $symbol => $code) {
+	if (strpos($cost, $symbol) !== false) {
+		$price_currency = $code;
+		break;
+	}
+}
+
+$event_price = $isFree ? '0' : preg_replace('/[^0-9.]/', '', $cost);
+
+$post_title = get_the_title();
+
 $schema = [
 	"@context"      => "https://schema.org",
 	"@type"         => "Event",
-	"name"          => $heading,
-	"description"   => $description,
+	"name"          => $post_title ? $post_title : $heading,
+	"description"   => $description ? $description : $heading,
 	"url"           => $url,
 	"startDate"     => ! empty($startDate['date']) ? date('c', strtotime(trim($startDate['date'] . ' ' . ($startDate['time'] ?? '')))) : null,
 	"endDate"       => ! empty($endDate['date']) ? date('c', strtotime(trim($endDate['date'] . ' ' . ($endDate['time'] ?? '')))) : null,
@@ -128,7 +151,7 @@ $schema = [
 	"eventAttendanceMode" => "https://schema.org/OfflineEventAttendanceMode",
 	"location"      => [
 		"@type"         => "Place",
-		"name"          => $heading . ' Venue',
+		"name"          => $eventVenue ? $eventVenue : $heading,
 		"address"       => [
 			"@type"         => "PostalAddress",
 			"streetAddress" => wp_strip_all_tags($address)
@@ -136,8 +159,8 @@ $schema = [
 	],
 	"offers" => [
 		"@type"         => "Offer",
-		"price"         => preg_replace('/[^0-9.]/', '', $cost),
-		"priceCurrency" => "JPY",
+		"price"         => $event_price,
+		"priceCurrency" => $price_currency,
 		"url"           => $url,
 		"availability"  => "https://schema.org/InStock",
 		"validFrom"     => date('c')
